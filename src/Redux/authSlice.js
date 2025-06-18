@@ -242,7 +242,7 @@ export const loginUser = createAsyncThunk(
     'auth/loginUser',
     async ({ email, password }, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI;
-        const loginEndpoint = 'https://605e-41-232-91-48.ngrok-free.app/api/Auth/login';
+        const loginEndpoint = 'http://dcare.runasp.net/api/Auth/login';
         try {
             const response = await axios.post(loginEndpoint, { email, password });
             const { token, role, status } = response.data;
