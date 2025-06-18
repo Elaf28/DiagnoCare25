@@ -150,7 +150,7 @@ export const fetchPatientProfile = createAsyncThunk(
 
         try {
         const response = await axios.get(
-            'https://605e-41-232-91-48.ngrok-free.app/api/Patients/profile',
+            'http://dcare.runasp.net/api/Patients/profile',
             {
             headers: {
                 Authorization: `Bearer ${token}`,
