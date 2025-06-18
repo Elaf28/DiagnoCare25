@@ -1,0 +1,22 @@
+.Labs-image {
+    width: 100%;
+    height: auto;
+}
+
+.Labs-card {
+    color: white;
+    background-color: var(--first-color); 
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+@media (min-width: 992px) {
+    .Labs-card {
+    font-size: 24px;
+    }
+}

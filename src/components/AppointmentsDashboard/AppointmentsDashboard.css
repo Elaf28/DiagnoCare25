@@ -1,0 +1,55 @@
+.dashboard-panel {
+    background-color:white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-panel h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color:var(--first-color);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--first-color);
+}
+
+.recent-appointment table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-appointment th,
+.recent-appointment td {
+    padding: 15px 0;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+.recent-appointment th {
+    font-size: 14px;
+    color: var(--first-color);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.recent-appointment td {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.recent-appointment td:first-child {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .dashboard-panel {
+        padding: 20px;
+    }
+    .recent-appointment th,
+    .recent-appointment td {
+        padding: 12px 0;
+        font-size: 14px;
+    }
+}

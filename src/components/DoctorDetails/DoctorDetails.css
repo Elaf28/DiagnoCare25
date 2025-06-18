@@ -1,0 +1,21 @@
+.working-hours,
+.book-an-appointment{
+    color: var(--first-color);
+}
+.line-icon{
+    font-size:20px;
+    color: var(--icon-color);
+}
+
+.doctor-details-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem; 
+    align-items: stretch; 
+}
+
+@media (max-width: 768px) { 
+    .doctor-details-container {
+        grid-template-columns: 1fr;
+    }
+}

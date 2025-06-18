@@ -1,0 +1,315 @@
+:root {
+    --admin-sidebar-width: 280px; 
+    --admin-navbar-height: 70px; 
+    --admin-sidebar-text: #333;
+    --admin-navbar-bg: #fff;
+    --admin-main-bg: #FBFCFF; 
+    --admin-text-color: #555;
+    --admin-nav-item-active-bg: #024d9d; /* لون خلفية العنصر النشط */
+    --admin-nav-item-hover-bg: rgba(255, 255, 255, 0.2); /* لون خلفية عند الهوفر */
+}
+
+/* Overall Layout Container */
+.admin-layout-container {
+    display: flex;
+    background-color: var(--admin-main-bg);
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Admin Sidebar Styles */
+.admin-sidebar {
+    width: var(--admin-sidebar-width);
+    background-color: var(--third-color);
+    color: var(--admin-sidebar-text);
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; 
+    z-index: 1000; 
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out; 
+}
+
+.admin-sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* .enaya-logo تم إزالته لأنه غير مستخدم في الـ HTML */
+
+.admin-logo-text {
+    font-family: "Courgette", cursive;
+    font-family: "Rancho", cursive;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    color:white;
+}
+
+.admin-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+}
+
+.admin-email {
+    font-size: 14px;
+    color: #c4c4c4;
+    margin: 5px 0 0;
+}
+
+.admin-sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.admin-sidebar-nav .admin-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-sidebar-nav .admin-nav-item.active {
+    font-weight: bold;
+    background-color: var(--admin-nav-item-active-bg); /* استخدام المتغير للون الخلفية النشط */
+}
+
+.admin-sidebar-nav .admin-nav-item:hover {
+    background-color: var(--admin-nav-item-hover-bg); /* استخدام المتغير للون الخلفية عند الهوفر */
+}
+
+/* Main Content Wrapper (contains Navbar and Page Content) */
+.admin-main-wrapper {
+    flex-grow: 1;
+    margin-left: var(--admin-sidebar-width); 
+    background-color: var(--admin-main-bg);
+    min-height: 100vh;
+    overflow-y: auto; 
+    position: relative;
+}
+/* Admin Navbar Styles */
+.admin-navbar {
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    background-color: var(--admin-navbar-bg);
+    padding: 12px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    position: fixed; 
+    top: 0;
+    left: var(--admin-sidebar-width); 
+    right: 0;
+    height: var(--admin-navbar-height);
+    z-index: 999;
+    margin: 10px 20px 0 0;
+    box-sizing: border-box;
+    width: calc(100% - var(--admin-sidebar-width) - 40px);
+
+}
+
+.admin-logout-btn {
+    display: flex;
+    align-items: center;
+    background-color: var(--third-color);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: background-color 0.2s ease;
+
+}
+
+.admin-logout-btn:hover {
+    background-color: #024d9d;
+    border: 0px;
+}
+
+.admin-logout-icon {
+    margin-left: 8px;
+}
+
+/* Page Specific Content Area */
+.admin-page-content {
+    padding: 20px;
+    padding-top: calc(var(--admin-navbar-height) + 20px);
+    min-height: calc(100vh - var(--admin-navbar-height));
+    box-sizing: border-box;
+}
+
+/* Responsive Design for Hamburger Menu */
+
+.hamburger-menu-btn {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--admin-text-color);
+    cursor: pointer;
+    padding: 0;
+    margin-right: 15px;
+}
+.close-sidebar-btn {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--admin-text-color);
+    cursor: pointer;
+    margin-left: auto; 
+}
+
+
+@media (max-width: 1200px) {
+    :root {
+        --admin-sidebar-width: 250px;
+    }
+    .admin-main-wrapper {
+        margin-left: var(--admin-sidebar-width);
+    }
+    .admin-navbar {
+        left: var(--admin-sidebar-width);
+        width: calc(100% - var(--admin-sidebar-width) - 40px);
+    }
+}
+@media (max-width: 992px) {
+    .hamburger-menu-btn {
+        display: block; 
+    }
+    .close-sidebar-btn {
+        display: block; 
+        color: white; /* تم تعديل اللون ليكون مرئياً على خلفية السايدبار */
+    }
+    .admin-sidebar {
+        width: 280px; 
+        transform: translateX(-100%);
+        left: 0;
+        top: 0;
+        height: 100vh;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        z-index: 1002;
+        padding: 20px;
+        flex-direction: column; 
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    .admin-sidebar.open {
+        transform: translateX(0); /* يظهر السايدبار */
+    }
+
+    .admin-profile, .admin-sidebar-nav {
+        display: flex; 
+        flex-direction: column;
+    }
+    .admin-sidebar-nav ul {
+        width: 100%;
+    }
+    .admin-sidebar-nav li {
+        width: 100%;
+    }
+    .admin-sidebar-nav .admin-nav-item { /* تم تصحيح اسم الكلاس */
+        justify-content: flex-start; 
+    }
+
+    .admin-main-wrapper {
+        margin-left: 0;
+    }
+
+    .admin-navbar {
+        top: 0; 
+        left: 0;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        justify-content: flex-start; 
+        padding-left: 20px; 
+    }
+
+    /* .navbar-title و .admin-navbar-title تم إزالتهم لأنهم غير مستخدمين في الـ HTML */
+
+    .admin-navbar-actions {
+        margin-left: auto; 
+    }
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1001; 
+        display: block; 
+    }
+
+    .admin-page-content {
+        padding-top: calc(var(--admin-navbar-height) + 20px); 
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-navbar {
+        flex-direction: row; 
+        align-items: center;
+        padding: 15px 20px;
+        height: auto;
+        position: sticky; 
+        box-shadow: none;
+        margin-bottom: 20px;
+        justify-content: flex-start; 
+    }
+    
+    .admin-navbar-actions {
+        margin-top: 0;
+        width: auto;
+        justify-content: flex-end; 
+    }
+
+    .admin-logout-btn {
+        margin-left: 20px; 
+        width: auto;
+    }
+
+    .admin-page-content {
+        padding-top: 20px; 
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-sidebar {
+        width: 250px; 
+        padding: 15px;
+    }
+    .hamburger-menu-btn {
+        font-size: 24px;
+    }
+    .admin-logout-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .admin-navbar {
+        padding: 10px 15px;
+    }
+}

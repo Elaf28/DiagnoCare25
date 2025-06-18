@@ -1,0 +1,49 @@
+.diagnosis{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.title__diagnosis{
+    color: var(--first-color);
+    
+}
+.input__diagnosis{
+    border: 2px solid var(--first-color);
+    color: var(--first-color);
+    border-radius: 8px;
+}
+.description__diagnosis{
+    border: 3px solid var(--first-color);
+    padding: 15px;
+    font-size: large;
+    border-radius: 8px;
+}
+.active{
+    background-color:var(--first-color);
+    color: white; 
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    width:200px;
+    margin: 10px;
+}
+
+.scanButton {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    width: 200px;
+    margin: 10px;
+}

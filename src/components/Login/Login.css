@@ -1,0 +1,174 @@
+.login-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #FBFCFF;
+    overflow: hidden;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.login-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.login-image-src {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.stethoscope {
+    font-size: 38px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.login-box {
+    padding: 2rem 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+    color: var(--first-color);
+    font-weight: 700;
+    margin: 20px 0 40px 0;
+    font-size: 2.2rem;
+}
+
+.input-field-container {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-label {
+    color: var(--first-color);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.login_input {
+    border: none;
+    border-bottom: 2px solid var(--first-color);
+    width: 100%;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 10px;
+    &::placeholder {
+        color: #919090;
+        font-size: 16px; 
+    }
+}
+
+.button-login {
+    background-color: var(--first-color);
+    color: #ffffff;
+    width: 200px;
+    font-size: 20px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-login:hover {
+    background-color: #0650b0;
+    transform: translateY(-2px);
+}
+
+.signup-link {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.signup-link p {
+    font-size: 16px;
+    color: #919090;
+    margin-bottom: 0;
+}
+
+.signup-link .link {
+    color: #28a745;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.signup-link .link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+    .login-page {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .image-container {
+        display: none;
+    }
+
+    .login-box {
+        max-width: 400px;
+        margin: 40px auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-box {
+        padding: 1.5rem;
+        min-width: unset;
+        max-width: 95%;
+        margin: 20px auto;
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .input-label {
+        font-size: 14px; 
+    }
+
+    .login_input {
+        font-size: 14px;
+        padding: 6px 0px;
+    }
+
+    .login_input::placeholder {
+        font-size: 14px; 
+    }
+
+    .button-login {
+        width: 100%;
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+}

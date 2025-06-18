@@ -1,0 +1,80 @@
+.doctor-bookings-card .card-header {
+    background-color: var(--first-color); 
+}
+
+.doctor-bookings-card .table thead th {
+    color: var(--first-color);
+    vertical-align: middle;
+}
+
+.doctor-bookings-card .table tbody tr {
+    vertical-align: middle;
+}
+
+.doctor-bookings-card .table td,
+.doctor-bookings-card .table th {
+    padding: 0.85rem;
+}
+
+.doctor-bookings-card .badge {
+    padding: 0.5em 0.8em;
+    font-size: 0.875em;
+    font-weight: 600;
+    border-radius: 0.35rem;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.doctor-bookings-card .table td .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 150px; 
+}
+
+.doctor-bookings-card .text-primary,
+.doctor-bookings-card .text-danger {
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .doctor-bookings-card .table thead {
+        display: none;
+    }
+
+    .doctor-bookings-card .table, 
+    .doctor-bookings-card .table tbody, 
+    .doctor-bookings-card .table tr, 
+    .doctor-bookings-card .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .doctor-bookings-card .table tr {
+        margin-bottom: 1rem;
+        border: 2px solid #dee2e6;
+        border-radius: 0.3rem;
+    }
+
+    .doctor-bookings-card .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        /* font-size: 0.9em; */
+    }
+
+    .doctor-bookings-card .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 0.75rem;
+        font-weight: bold;
+        text-align: left;
+        font-size: 0.9em;
+    }
+    .doctor-bookings-card .table td .btn{
+        font-size: 0.8em;
+    }
+}

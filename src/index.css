@@ -1,0 +1,64 @@
+:root{
+    --first-color:#03459c;
+    --second-color:#0077B6;
+    --third-color:#03045E;
+    --icon-color:#90E0EF;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    position: relative;
+}
+ul{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+.link{
+    text-decoration: none;
+}
+
+.allCard:hover{
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.icon{
+    color: var(--icon-color);
+}
+
+.predict-button{
+    background-color: var(--first-color);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 20px 10px 10px 0px;
+}
+.predict-button:hover{
+    background-color: #0056b3;
+}
+
+.incDec__button{
+    color:var(--first-color);
+    background-color:white;
+    padding: 5px 15px;
+    font-weight: bold;
+    font-size: 25px;
+    border: 0px;
+    border-radius: 5px;
+}
+.incDec__button:hover{
+    color: white;
+    background-color: var(--first-color);
+}
+.diagnosis-input-group{
+    border: 3px solid var(--first-color);
+    border-radius: 8px;
+}
+
+

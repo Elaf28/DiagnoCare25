@@ -1,0 +1,36 @@
+.search{
+    position: absolute;
+    right: 27%;
+    color: var(--first-color);
+    width: 35px;
+    height: 35px;
+}
+
+.specialty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.specialty-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border:4px solid var(--first-color);
+}
+
+.specialty-image {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.specialty-name {
+    font-weight: bold;
+    color: var(--first-color);
+}

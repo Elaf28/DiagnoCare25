@@ -1,0 +1,78 @@
+.dashboard-page {
+    padding: 15px;
+}
+
+.dashboard-panel {
+    background-color:white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    /* الحل لمشكلة حجم الجدول الكبير أفقياً: إضافة شريط تمرير أفقي عند الحاجة */
+    overflow-x: auto; 
+}
+
+.dashboard-panel h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color:var(--first-color);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Info Cards Section */
+.dashboard-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    min-height: 120px;
+}
+
+.dashboard-card-icon{
+    color:var(--first-color);
+}
+
+
+/* Recent Appointments Table */
+.recent-appointment table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* يمكن تعيين الحد الأدنى للعرض لضمان عدم تداخل الأعمدة على الشاشات الصغيرة قبل ظهور السكرول */
+}
+
+.recent-appointment th,
+.recent-appointment td {
+    padding: 15px 0;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+.recent-appointment th {
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap; /* يمنع التفاف النص في رؤوس الأعمدة للحفاظ على عرض العمود */
+}
+
+.recent-appointment td {
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap; /* يمنع التفاف النص في خلايا البيانات للحفاظ على عرض العمود */
+}
+
+.recent-appointment td:first-child {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .dashboard-panel {
+        padding: 20px;
+    }
+    .recent-appointment th,
+    .recent-appointment td {
+        padding: 12px 5px; /* تقليل الـ padding الأفقي للشاشات الصغيرة */
+        font-size: 14px;
+    }
+}

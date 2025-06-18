@@ -1,0 +1,14 @@
+.heart-disease-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.heart__label{
+    margin: 15px 0px 10px 0px;
+    font-weight: bold;
+}
+.heart-icon{
+    color: red;
+    font-size:35px;
+    margin-right: 4px;
+}

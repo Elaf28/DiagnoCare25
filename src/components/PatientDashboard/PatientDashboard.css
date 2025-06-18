@@ -1,0 +1,79 @@
+.patient-dashboard {
+    padding: 15px; 
+}
+.patient-search-input {
+    box-shadow: 0 0 0 0.15rem var(--first-color);
+}
+
+.patient-dashboard h3 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color:var(--first-color);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.patient-dashboard-table-wrapper {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    overflow-x: auto; 
+    padding: 20px;
+}
+
+.patient-dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.patient-dashboard th,
+.patient-dashboard td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    white-space: normal; 
+}
+
+.patient-dashboard th {
+    font-size: 14px;
+    color: var(--first-color);
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.patient-dashboard td {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* تنسيق خاص لعمود البريد الإلكتروني (الخلية الثالثة) لضمان عرضه بالكامل */
+.patient-dashboard td:nth-child(3) {
+    white-space: normal; 
+    overflow: visible; 
+    text-overflow: clip; 
+    max-width: 250px;    
+}
+
+@media (max-width: 768px) {
+    .patient-dashboard-table-wrapper {
+        padding: 15px;
+    }
+    .patient-dashboard th,
+    .patient-dashboard td {
+        padding: 10px 5px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .patient-dashboard h3 {
+        font-size: 18px;
+    }
+    .patient-dashboard th,
+    .patient-dashboard td {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+}
