@@ -83,8 +83,6 @@ export default function App() {
                 <Route path='register' element={<Register/>}/>
                 <Route path='specialties' element={<Specialties/>}/>
                 <Route path='userprofile' element={<UserProfile/>}/>
-                <Route path='/patientProfile' element={<PatientProfile />}/>
-                <Route path='/doctorProfile' element={<DoctorProfile />}/>
                 <Route path='/doctors/:specialtyName' element={<Doctors/>}/>
                 <Route path='/doctor/:id' element={<DoctorDetails/>}/>
                 <Route path='/booking-confirmation' element={<BookingConfirmation/>}/>
@@ -98,6 +96,22 @@ export default function App() {
                 <Route path='/DoctorAppointments' element={<DoctorAppointments/>}/>
                 <Route path='/doctor-pending-approval' element={<DoctorPending/>}/>
                 <Route path='/WorkingHours' element={<WorkingHours/>}/>
+                <Route
+                  path="/patientProfile"
+                  element={
+                    <PrivateRoute allowedRoles={['Patient']}>
+                      <PatientProfile />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/doctorProfile"
+                  element={
+                    <PrivateRoute allowedRoles={['Doctor']}>
+                      <DoctorProfile />
+                    </PrivateRoute>
+                  }
+                />
                 {/* <Route path='/admin' element={<Admin/>}/> */}
 
             </Route>
