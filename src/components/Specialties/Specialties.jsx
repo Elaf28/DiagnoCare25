@@ -136,7 +136,7 @@ export default function Specialties() {
                 to={`/doctors/${specialty.name.toLowerCase().replace(/ /g, '-')}`}
                 className="specialty-card link allCard"
               >
-                <img src={specialty.imageUrl.replace('http://', 'https://')} alt={specialty.name} className="specialty-image" />
+                <img src={`https://corsproxy.io/?${specialty.imageUrl}`} alt={specialty.name} className="specialty-image" />
                 <span className="specialty-name fs-5">{specialty.name}</span>
               </Link>
             ))
