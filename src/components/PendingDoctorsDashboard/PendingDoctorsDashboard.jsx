@@ -162,10 +162,12 @@
 
 
 
+
+
 import React, { useState, useEffect } from 'react';
 import './PendingDoctorsDashboard.css';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance'; 
 
 export default function PendingDoctorsDashboard() {
     const [pendingDoctorsData, setPendingDoctorsData] = useState([]); 
@@ -173,11 +175,10 @@ export default function PendingDoctorsDashboard() {
     const [error, setError] = useState(null); 
     const [searchTerm, setSearchTerm] = useState(''); 
 
-    // جلب بيانات الدكاترة من الباك
     useEffect(() => {
         const fetchPendingDoctors = async () => {
             try {
-                const response = await axios.get('https://your-api-url.com/api/doctors/pending');
+                const response = await axiosInstance.get('/Doctors/pending');
                 setPendingDoctorsData(response.data);
                 setError(null);
             } catch (err) {
@@ -190,13 +191,12 @@ export default function PendingDoctorsDashboard() {
         fetchPendingDoctors();
     }, []);
 
-    // دالة لعرض باقي تفاصيل الدكتور
     const handleViewDetails = (doctor) => {
         Swal.fire({
             title: `${doctor.firstName} ${doctor.lastName} Details`,
             html: `
                 <ul style="text-align: left; padding-left: 20px;">
-                    <li><strong>ID:</strong> ${doctor.id}</li>
+                    <li><strong>ID:</strong> ${doctor.doctorId}</li>
                     <li><strong>Email:</strong> ${doctor.email}</li>
                     <li><strong>Phone:</strong> ${doctor.phoneNumber}</li>
                     <li><strong>Address:</strong> ${doctor.address1}, ${doctor.address2}</li>
@@ -210,59 +210,57 @@ export default function PendingDoctorsDashboard() {
                     <li><strong>Qualification:</strong> <a href="${doctor.qualificationImgUrl}" target="_blank"><img src="${doctor.qualificationImgUrl}" alt="Qualification" style="max-width: 100px; max-height: 100px;"></a></li>
                 </ul>
             `,
-            icon: 'info',
+            icon: '',
             confirmButtonText: 'Close'
         });
     };
 
-    // فلترة الدكاترة حسب البحث
     const filteredDoctors = pendingDoctorsData.filter(doctor => {
         const fullName = `${doctor.firstName} ${doctor.lastName}`.toLowerCase();
         return fullName.includes(searchTerm.toLowerCase());
     });
 
-
     const handleApproveDoctor = async (id) => {
-    try {
-        const confirm = await Swal.fire({
-            title: "Are you sure?",
-            text: "Do you want to approve this doctor?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, approve!",
-        });
+        try {
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to approve this doctor?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, approve!",
+            });
 
-        if (confirm.isConfirmed) {
-            await axios.put(`https://your-api-url.com/api/doctors/${id}/approve`);
-            setPendingDoctorsData(prev => prev.filter(doctor => doctor.id !== id));
-            Swal.fire("Approved!", "Doctor has been approved.", "success");
+            if (confirm.isConfirmed) {
+                await axiosInstance.put(`/Doctors/approve/${id}`);
+                setPendingDoctorsData(prev => prev.filter(doctor => doctor.doctorId !== id));
+                Swal.fire("Approved!", "Doctor has been approved.", "success");
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error!", "Could not approve doctor.", "error");
         }
-    } catch (error) {
-        console.error(error);
-        Swal.fire("Error!", "Could not approve doctor.", "error");
-    }
-};
+    };
+    
+    const handleRejectDoctor = async (id) => {
+        try {
+            const confirm = await Swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to reject this doctor?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, reject!",
+            });
 
-const handleRejectDoctor = async (id) => {
-    try {
-        const confirm = await Swal.fire({
-            title: "Are you sure?",
-            text: "Do you want to reject this doctor?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, reject!",
-        });
-
-        if (confirm.isConfirmed) {
-            await axios.put(`https://your-api-url.com/api/doctors/${id}/reject`);
-            setPendingDoctorsData(prev => prev.filter(doctor => doctor.id !== id));
-            Swal.fire("Rejected!", "Doctor has been rejected.", "success");
+            if (confirm.isConfirmed) {
+                await axiosInstance.put(`/Doctors/reject/${id}`);
+                setPendingDoctorsData(prev => prev.filter(doctor => doctor.doctorId !== id));
+                Swal.fire("Rejected!", "Doctor has been rejected.", "success");
+            }
+        } catch (error) {
+            console.error(error);
+            Swal.fire("Error!", "Could not reject doctor.", "error");
         }
-    } catch (error) {
-        console.error(error);
-        Swal.fire("Error!", "Could not reject doctor.", "error");
-    }
-};
+    };
 
     return (
         <div className='pending-doctors-dashboard container'>
@@ -297,8 +295,8 @@ const handleRejectDoctor = async (id) => {
                         </thead>
                         <tbody>
                             {filteredDoctors.map((doctor) => (
-                                <tr key={doctor.id}>
-                                    <td data-label="ID">{doctor.id}</td>
+                                <tr key={doctor.doctorId}>
+                                    <td data-label="ID">{doctor.doctorId}</td>
                                     <td data-label="Image">
                                         <img
                                             src={doctor.image}
@@ -306,7 +304,7 @@ const handleRejectDoctor = async (id) => {
                                             className="doctor-dashboard-image"
                                         />
                                     </td>
-                                    <td data-label="Name">{doctor.firstName} {doctor.lastName}</td>
+                                    <td data-label="Name">Dr. {doctor.firstName} {doctor.lastName}</td>
                                     <td data-label="Email">{doctor.email}</td>
                                     <td data-label="Actions">
                                         <button
@@ -317,13 +315,13 @@ const handleRejectDoctor = async (id) => {
                                         </button>
                                         <button
                                             className='btn btn-outline-success btn-sm me-2'
-                                            onClick={() => handleApproveDoctor(doctor.id)}
+                                            onClick={() => handleApproveDoctor(doctor.doctorId)}
                                         >
                                             Approve
                                         </button>
                                         <button
                                             className='btn btn-outline-danger btn-sm'
-                                            onClick={() => handleRejectDoctor(doctor.id)}
+                                            onClick={() => handleRejectDoctor(doctor.doctorId)}
                                         >
                                             Reject
                                         </button>

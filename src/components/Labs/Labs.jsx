@@ -1,7 +1,7 @@
 import React from 'react';
 import './Labs.css';
 import { useNavigate } from 'react-router-dom';
-
+import lab from '../../assets/images/lab.jpg';
 export default function Labs() {
     const navigate= useNavigate();
     const handleCardClick=(path)=>{
@@ -11,7 +11,7 @@ export default function Labs() {
         <div className='container lab-content'>
         <div className='row py-5 align-items-center '>
             <div className='col-md-5'>
-            <img className='Labs-image' src="/images/5803206789716625860.jpg" alt="" />
+            <img className='Labs-image' src={lab} alt="" />
             </div>
             <div className='col-md-7 d-flex flex-column gap-5'>
             <div className='Labs-card allCard' onClick={()=>handleCardClick('/examinations/bloodDiagnosis')}>Complete Blood Count (CBC) Test</div>

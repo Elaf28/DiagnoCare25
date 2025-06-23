@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'; 
 import { Routes, Route, Navigate, Link ,useLocation} from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserFromToken} from './Redux/authSlice';
 import PublicLayout from './components/PublicLayout/PublicLayout';
@@ -12,14 +13,12 @@ import PatientProfile from './components/PatientProfile/PatientProfile';
 import DoctorProfile from './components/DoctorProfile/DoctorProfile';
 import Doctors from './components/Doctors/Doctors';
 import DoctorDetails from './components/DoctorDetails/DoctorDetails';
-import BookingConfirmation from './components/BookingConfirmation/BookingConfirmation';
 import Diagnosis from './components/Diagnosis/Diagnosis';
 import ScanImage from './components/ScanImage/ScanImage';
 import BloodDiagnosis from './components/BloodDiagnosis/BloodDiagnosis';
 import HeartDisease from './components/HeartDisease/HeartDisease';
 import Labs from './components/Labs/Labs';
 import DiabetesDiagnosis from './components/DiabetesDiagnosis/DiabetesDiagnosis';
-import UserProfile from './components/UserProfile/UserProfile';
 import NotFound from './components/NotFound/NotFound';
 import MyAppointments from './components/MyAppointments/MyAppointments';
 import DoctorAppointments from './components/DoctorAppointments/DoctorAppointments';
@@ -31,7 +30,8 @@ import AppointmentsDashboard from './components/AppointmentsDashboard/Appointmen
 import DoctorPending from './components/DoctorPending/DoctorPending';
 import WorkingHours from './components/WorkingHoures/WorkingHoures';
 import Logout from './components/Logout/Logout';
-
+import PendingDoctorsDashboard from './components/PendingDoctorsDashboard/PendingDoctorsDashboard';
+import ChatPot from './components/ChatPot/ChatPot';
 
   function ScrollToHashElement() {
     const location = useLocation(); 
@@ -47,27 +47,37 @@ import Logout from './components/Logout/Logout';
     return null; 
   }
 
-const PrivateRoute = ({ children, allowedRoles }) => {
-    const { isAuthenticated, user, status } = useSelector((state) => state.auth);
+const PrivateRoute = ({ children, allowedRoles, showLoginAlert = false }) => {
+  const { isAuthenticated, user, status } = useSelector((state) => state.auth);
 
-    if (status === 'loading') {
-        return <div className="text-center p-5">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>;
+  useEffect(() => {
+    if (!isAuthenticated && status !== 'loading' && showLoginAlert) {
+      Swal.fire({
+        title: 'Login Required',
+        text: 'You must be logged in to access this page.',
+        icon: 'warning',
+        confirmButtonText: 'Go to Login',
+      }).then(() => {
+        window.location.href = '/login';
+      });
     }
+  }, [isAuthenticated, status, showLoginAlert]);
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
+  if (!isAuthenticated && showLoginAlert) {
+    return null;
+  }
 
-    if (allowedRoles && user && !allowedRoles.includes(user.role)) {
-        return <Navigate to="/unauthorized" replace />; 
-    }
+  if (!isAuthenticated && !showLoginAlert) {
+    return <Navigate to="/login" replace />;
+  }
 
-    return children;
+  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return children;
 };
+
 
 export default function App() {
     const dispatch = useDispatch();
@@ -82,10 +92,8 @@ export default function App() {
                 <Route index element={<Home />} /> 
                 <Route path='register' element={<Register/>}/>
                 <Route path='specialties' element={<Specialties/>}/>
-                <Route path='userprofile' element={<UserProfile/>}/>
-                <Route path='/doctors/:specialtyName' element={<Doctors/>}/>
+                {/* <Route path='/doctors/:specialtyName' element={<Doctors/>}/> */}
                 <Route path='/doctor/:id' element={<DoctorDetails/>}/>
-                <Route path='/booking-confirmation' element={<BookingConfirmation/>}/>
                 <Route path='diagnosis' element={<Diagnosis/>}/>
                 <Route path='/examinations/heartDisease' element={<HeartDisease/>}/>
                 <Route path='/diagnosis/scanImage' element={<ScanImage/>}/>
@@ -96,6 +104,15 @@ export default function App() {
                 <Route path='/DoctorAppointments' element={<DoctorAppointments/>}/>
                 <Route path='/doctor-pending-approval' element={<DoctorPending/>}/>
                 <Route path='/WorkingHours' element={<WorkingHours/>}/>
+                <Route path='/chatPot' element={<ChatPot/>}/>
+                <Route
+                  path='/doctors/:specialtyName'
+                  element={
+                    <PrivateRoute showLoginAlert={true}>
+                      <Doctors />
+                    </PrivateRoute>
+                  }
+                />
                 <Route
                   path="/patientProfile"
                   element={
@@ -112,26 +129,28 @@ export default function App() {
                     </PrivateRoute>
                   }
                 />
-                {/* <Route path='/admin' element={<Admin/>}/> */}
 
             </Route>
 
             <Route path='login' element={<Login />} /> 
 
-            {/* <Route
+            <Route
               path="/admin"
               element={
-                <PrivateRoute allowedRoles={['admin']}>
+                <PrivateRoute allowedRoles={['Admin']}>
                   <Admin />
                 </PrivateRoute>
               }
             >
               <Route index element={<Dashboard />} />
-              <Route path="DoctorDashboard" element={<DoctorDashboard />} />
-              <Route path="PatientDashboard" element={<PatientDashboard />} />
-              <Route path="SpecialtiesDashboard" element={<SpecialtiesDashboard />} />
-              <Route path="AppointmentsDashboard" element={<AppointmentsDashboard />} />
-            </Route> */}
+              <Route path="allDoctors" element={<DoctorDashboard />} />
+              <Route path="allPatients" element={<PatientDashboard />} />
+              <Route path="allSpecialties" element={<SpecialtiesDashboard />} />
+              <Route path="allAppointments" element={<AppointmentsDashboard />} />
+              <Route path="pendingDoctors" element={<PendingDoctorsDashboard />} />
+            </Route>
+
+
 
             <Route path="/logout" element={<Logout />} />
 

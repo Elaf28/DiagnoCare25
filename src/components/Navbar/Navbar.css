@@ -109,6 +109,38 @@
   color: var(--first-color);
 }
 
+@media (max-width: 768px) {
+  .logo{
+    font-size: 1.5rem;
+  }
+  .myNavbar ul{
+    font-size: small;
+  }
+  .nav-button{
+    padding: 3px 10px ;
+    font-size:small;
+  }
+  .myNavbar{
+    padding: 10px 5%;
+  }
+}
+@media (max-width: 530px) {
+  .logo{
+    font-size: 1.2rem;
+  }
+  .myNavbar ul{
+    font-size: smaller;
+    
+  }
+  .nav-button{
+    padding: 3px 7px ;
+    font-size:smaller;
+  }
+  .myNavbar{
+    padding: 10px 3%;
+  }
+}
+
 /* @media (max-width: 768px) {
   .navbar-links {
     display: none; 

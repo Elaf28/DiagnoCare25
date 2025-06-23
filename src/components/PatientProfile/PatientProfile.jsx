@@ -385,7 +385,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, ListGroup, Button, Form, Alert, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPatientProfile, updatePatientProfile, resetPatientProfileStatus } from '../../Redux/patientProfileReducer';
+import { fetchPatientProfile, updatePatientProfile, resetPatientProfileStatus, setPatientProfileData } from '../../Redux/patientProfileReducer';
 import { useNavigate } from 'react-router-dom';
 
 export default function PatientProfile() {
@@ -403,7 +403,7 @@ export default function PatientProfile() {
         console.log("PatientProfile useEffect 1: isAuthenticated:", isAuthenticated, "authStatus:", authStatus, "patientData.email:", patientData.email, "status (profile):", status);
 
         // التأكد من أن المستخدم مسجل الدخول قبل محاولة جلب البروفايل
-        if (!isAuthenticated || authStatus !== 'succeeded') {
+        if (!isAuthenticated || !user || !user.email) {
             console.log("PatientProfile: Not authenticated or auth not succeeded, navigating to login.");
             navigate('/login');
             return; // توقف التنفيذ هنا
@@ -522,6 +522,8 @@ export default function PatientProfile() {
         if (validateForm()) {
             try {
                 await dispatch(updatePatientProfile(tempPatientData)).unwrap();
+                dispatch(setPatientProfileData(tempPatientData)); // ← تحديث البيانات يدويًا في الـ Redux
+
                 setIsEditing(false);
                 setValidationErrors({});
             } catch (rejectedValueOrSerializedError) {

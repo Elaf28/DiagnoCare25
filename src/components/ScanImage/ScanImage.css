@@ -47,3 +47,11 @@
     width: 200px;
     margin: 10px;
 }
+.output-scan{
+    width: 50%;
+}
+@media (max-width: 480px){
+    .output-scan{
+    width: 100%;
+}
+}

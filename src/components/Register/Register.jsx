@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import PatientRegisterForm from '../PatientRegisterForm/PatientRegisterForm';
 import DoctorRegisterForm from '../DoctorRegisterForm/DoctorRegisterForm';
+import register from '../../assets/images/register.png';
 import './Register.css'; 
 export default function Register() {
   const [role, setRole] = useState('patient'); 
@@ -13,7 +14,7 @@ export default function Register() {
       <div className=''>
       <div className="register-grid ">
           <div className="register-image">
-              <img className='img-fluid h-100 object-fit-cover' src="/images/Screenshot 2025-05-05 230159.png" alt="" />
+              <img className='img-fluid h-100 object-fit-cover' src={register} alt="" />
           </div>
           
           <div className="register-container register-form py-4">

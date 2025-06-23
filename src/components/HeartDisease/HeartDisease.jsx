@@ -40,7 +40,7 @@ export default function HeartDisease() {
 
     async function sendHeartDataToApi(){
         try {
-            let {data}= await axios.post(`https://38ed-2c0f-fc89-802d-d37c-a3-15eb-db5e-bb5.ngrok-free.app/predict`,heartData); 
+            let {data}= await axios.post(`https://83bb-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,heartData); 
             // console.log(data)
             setPredictionResult(data.result);
             setLoading(false);
@@ -206,8 +206,8 @@ export default function HeartDisease() {
             )}
             {predictionResult && (
                 <div className="alert alert-primary m-3 fs-5" role="alert">
-                    <h3>Diagnosis Result:</h3>
-                    <p>{predictionResult}</p>
+                    <strong>Predicted Diagnosis is: </strong>
+                    {predictionResult}
                 </div>
             )}
             </form>

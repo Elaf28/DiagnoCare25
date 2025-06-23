@@ -68,8 +68,15 @@
     vertical-align: middle;
 }
 
+/* .pending-doctors-dashboard-table td:last-child,
+.pending-doctors-dashboard-table th:last-child {
+    min-width: 150px; 
+} */
+
+
 .pending-doctors-dashboard-table td:last-child {
     padding: 10px;
+    
 }
 .pending-doctors-dashboard-table .btn {
     padding: 5px 10px;
@@ -77,6 +84,12 @@
     margin-right: 5px;
     transition: background-color 0.3s ease;
 }
+@media (max-width: 1280px) {
+    .pending-doctors-dashboard-table td:last-child {
+        min-width: 16em; 
+    }
+}
+
 
 @media (max-width: 768px) {
     .pending-doctors-dashboard-table-wrapper {
@@ -94,6 +107,7 @@
     }
     .pending-doctors-dashboard-table td:last-child {
         padding: 8px;
+        min-width: 13em; 
     }
     .pending-doctors-dashboard-table .btn {
         padding: 4px 8px;
@@ -114,6 +128,7 @@
     }
     .pending-doctors-dashboard-table td:last-child {
         padding: 6px;
+        min-width: 10em;
     }
     .pending-doctors-dashboard-table .btn {
         padding: 3px 6px;

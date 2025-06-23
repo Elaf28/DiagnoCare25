@@ -292,14 +292,13 @@ export default function PatientRegisterForm() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status, error } = useSelector((state) => state.auth);
+  const { status} = useSelector((state) => state.auth);
   const isLoading = status === 'loading';
 
   const onSubmit = async (data) => {
     console.log('Patient Registration Data:', data);
 
     try {
-      // إرسال البيانات كـ JSON بدل FormData لأن الـ API يتوقع JSON
       await dispatch(registerPatient(data)).unwrap();
       navigate('/login');
     } catch (err) {
@@ -312,7 +311,6 @@ export default function PatientRegisterForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='container patient_register_container'>
-          {error && <p className="text-danger text-center">{error}</p>}
           <div className='row d-flex align-items-center justify-content-around'>
             {/* First Name */}
             <div className="form-group col-lg-5 col-md-6">

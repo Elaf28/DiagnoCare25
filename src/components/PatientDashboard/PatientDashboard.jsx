@@ -87,20 +87,20 @@
 
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import './PatientDashboard.css';
 import Swal from 'sweetalert2';
+import axiosInstance from '../../api/axiosInstance'; // ✅ استخدام axiosInstance
 
 export default function PatientDashboard() {
     const [patients, setPatients] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // ✅ جلب بيانات المرضى عند تحميل الصفحة
+    // ✅ جلب بيانات المرضى من API
     useEffect(() => {
         const fetchPatients = async () => {
             try {
-                const response = await axios.get('https://your-api-url/api/patient/all'); // استبدلي بالرابط الفعلي
+                const response = await axiosInstance.get('/Patients/GET-Patients');
                 setPatients(response.data);
             } catch (error) {
                 console.error('Error fetching patients:', error);
@@ -110,7 +110,6 @@ export default function PatientDashboard() {
         fetchPatients();
     }, []);
 
-    // ✅ حذف مريض بعد تأكيد المستخدم
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
             title: 'Are you sure?',
@@ -123,7 +122,7 @@ export default function PatientDashboard() {
 
         if (confirm.isConfirmed) {
             try {
-                await axios.delete(`https://your-api-url/api/patient/delete/${id}`); // استبدلي بالرابط الفعلي
+                await axiosInstance.delete(`/Patients/${id}`);
                 setPatients(prev => prev.filter(p => p.id !== id));
                 Swal.fire('Deleted!', 'Patient has been deleted.', 'success');
             } catch (error) {
@@ -169,13 +168,13 @@ export default function PatientDashboard() {
                     </thead>
                     <tbody>
                         {filteredPatients.map((patient) => (
-                            <tr key={patient.id}>
-                                <td>{patient.id}</td>
-                                <td>{patient.firstName} {patient.lastName}</td>
+                            <tr key={patient.patientId}>
+                                <td>{patient.patientId}</td>
+                                <td>{patient.fullName}</td>
                                 <td>{patient.email}</td>
                                 <td>{patient.gender}</td>
                                 <td>{patient.phoneNumber}</td>
-                                <td>{patient.dateOfBirth}</td>
+                                <td>{new Date(patient.dateOfBirth).toLocaleDateString('en-GB')}</td>
                                 <td>
                                     <button
                                         className='btn btn-outline-danger btn-sm'

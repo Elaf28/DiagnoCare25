@@ -35,7 +35,7 @@ export default function DiabetesDiagnosis() {
     }
     async function sendDiabetesDataToApi(){
         try {
-            let {data}= await axios.post(`https://fbbf-2c0f-fc89-8032-d5c2-f131-c975-66c1-2387.ngrok-free.app/predict`,diabetesData); 
+            let {data}= await axios.post(`https://91eb-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,diabetesData); 
             console.log(data)
                 setDiagnosis(data.result);
                 setLoading(false);
@@ -76,14 +76,6 @@ export default function DiabetesDiagnosis() {
                     </div>
                 </div>
 
-                <div className='col-md-6'>
-                    <label className='diabetes-label' htmlFor="age">Age</label>
-                    <div className="input-group diagnosis-input-group">
-                        <input type="text" id="age" name="age" className=' form-control' placeholder="Enter your age" aria-label="Recipient's username with two button addons" required value={diabetesData.age} onChange={getDiabetesData} />
-                            <button className="incDec__button" type="button" onClick={() => handleIncrement('age')}>+</button>
-                            <button className="incDec__button" type="button" onClick={() => handleDecrement('age')}>-</button>
-                    </div>
-                </div>
 
                 <div className='col-md-6'>
                     <label className='diabetes-label'>Hypertension</label>
@@ -101,6 +93,7 @@ export default function DiabetesDiagnosis() {
                     </div>
                 </div>
 
+                
                 <div className='col-md-6'>
                 <label className='diabetes-label'>Heart Disease</label>
                 <div className="form-check my-2">
@@ -117,6 +110,14 @@ export default function DiabetesDiagnosis() {
                     </div>
                 </div>
 
+                <div className='col-md-6'>
+                    <label className='diabetes-label' htmlFor="age">Age</label>
+                    <div className="input-group diagnosis-input-group">
+                        <input type="text" id="age" name="age" className=' form-control' placeholder="Enter your age" aria-label="Recipient's username with two button addons" required value={diabetesData.age} onChange={getDiabetesData} />
+                            <button className="incDec__button" type="button" onClick={() => handleIncrement('age')}>+</button>
+                            <button className="incDec__button" type="button" onClick={() => handleDecrement('age')}>-</button>
+                    </div>
+                </div> 
                 <div className='col-md-6'>
                     <label className='diabetes-label' htmlFor="bmi">BMI(Body Mass index)</label>
                     <div className="input-group diagnosis-input-group">
@@ -161,8 +162,8 @@ export default function DiabetesDiagnosis() {
             )}
             {diagnosis && (
                 <div class="alert alert-primary m-3 fs-5" role="alert">
-                    <h3>Diagnosis Result:</h3>
-                    <p>{diagnosis}</p>
+                    <strong>Predicted Diagnosis is: </strong>
+                    {diagnosis}
                 </div>
             )}
             

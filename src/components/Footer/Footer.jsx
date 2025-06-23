@@ -7,12 +7,10 @@ export default function Footer() {
         <div className='footer py-3'style={{backgroundColor: 'var(--third-color)',color:'white'}}>
             <div className='container'>
                 <div className=' d-flex row  justify-content-around'>
-                {/* ------ Left Section ----- */}
                 <div className='col-md-5 py-0'>
                     <h4 className='logo' style={{fontSize: '1.5rem'}}>DiagnoCare</h4>
                     <p className='fs-6 fw-light' style={{fontSize: '14px'}} >Your comprehensive platform for smart healthcare. Easily book your tests, scans, and connect with top doctors from anywhere.</p>
                 </div>
-                {/* ------ center Section ----- */}
                 <div className='col-md-3 py-0'>
                     <p>Main Links</p>
                     <ul className='m-0 p-0 fw-light'style={{fontSize: '14px'}}>
@@ -21,10 +19,9 @@ export default function Footer() {
                         <li className='pb-1' onClick={()=>navigate('/#our-services')} style={{cursor:'pointer'}}>Services</li>
                     </ul>
                 </div>
-                {/* ------ Right Section ----- */}
                 <div className='col-md-3 py-0'>
                     <p>Contact Us</p>
-                    <a href="mailto:support@care.com" style={{fontSize: '14px',textDecoration:'none',color:'white'}}><CiMail style={{fontSize: '16px',fontWeight:'bold'}}/> diagnocaree@gmail.com</a>
+                    <a href="mailto:diagnocaree@gmail.com" style={{fontSize: '14px',textDecoration:'none',color:'white'}}><CiMail style={{fontSize: '16px',fontWeight:'bold'}}/> Diagnocaree@gmail.com</a>
                 </div>
             </div>
             </div>

@@ -1,287 +1,325 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import './Doctors.css';
-import { IoMdSearch } from 'react-icons/io';
-import { MdAdd } from "react-icons/md";
-import { FaLocationDot } from "react-icons/fa6";
-
-export default function Doctors() {
-  const { specialtyName, } = useParams();
-  const[searchTerm,setSearchTerm]=useState('');
-  const navigate = useNavigate();
-  const doctors = [
-    {
-      id:1,
-      name: 'Vincent Brinky',
-      specialty: 'Cardiology and Vascular Disease',
-      image: '/images/doctor1.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:2,
-      name: 'Chewing Shiniong',
-      specialty: 'Cardiology and Vascular Disease',
-      image: '/images/doctor2.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:3,
-      name: 'Shayn Cannon',
-      specialty: 'Cardiology and Vascular Disease',
-      image: '/images/doctor4.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:4,
-      name: 'Shayn Cannon',
-      specialty: 'Pediatrics',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:5,
-      name: 'mohsen Cannon',
-      specialty: 'Urology',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:6,
-      name: 'Vincent Brinky',
-      specialty: 'Dermatology',
-      image: '/images/doctor1.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:7,
-      name: 'Chewing Shiniong',
-      specialty: 'Dermatology',
-      image: '/images/doctor2.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:8,
-      name: 'Shayn Cannon',
-      specialty: 'Dentistry',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:9,
-      name: 'Shayn Cannon',
-      specialty: 'Psychiatry',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:10,
-      name: 'mohsen Cannon',
-      specialty: 'Urology',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:11,
-      name: 'Vincent Brinky',
-      specialty: 'Dentistry',
-      image: '/images/doctor1.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:12,
-      name: 'Chewing Shiniong',
-      specialty: 'Dentistry',
-      image: '/images/doctor2.jpg',
-      position:'specialist Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:13,
-      name: 'Shayn Cannon',
-      specialty: 'Cardiology and Vascular Disease',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:13,
-      name: 'Shayn Cannon',
-      specialty: 'Dermatology',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:14,
-      name: 'mohsen Cannon',
-      specialty: 'Orthopedics',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:15,
-      name: 'Shayn Cannon',
-      specialty: 'Otolaryngology',
-      image: '/images/doctor3.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:16,
-      name: 'mohsen Cannon',
-      specialty: 'Otolaryngology',
-      image: '/images/doctor2.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-    {
-      id:17,
-      name: 'mohsen Cannon',
-      specialty: 'Otolaryngology',
-      image: '/images/doctor2.jpg',
-      position:'Consultant Cardiologist',
-      address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
-    },
-  ];
-  const filteredDoctors = doctors.filter(
-    (doctor) => doctor.specialty.toLowerCase() === specialtyName.replace(/-/g, ' ') &&
-    doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) 
-  );
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-  return (<>
-    <div className='container'>
-      <div className='d-flex align-items-center justify-content-center my-5 '>
-        <div className='w-100 d-flex align-items-center justify-content-center'>
-          <input style={{border: '3px solid var(--first-color) ' }} className="form-control form-control-lg w-50 " type="text" placeholder="Search for doctor . . ." aria-label=".form-control-lg example" value={searchTerm} onChange={handleSearchChange} ></input>
-          <IoMdSearch className='search' />
-        </div>
-      </div>
-      <div className="doctors-grid my-5 align-items-center justify-content-center row gap-2">
-        {filteredDoctors.map((doctor,index) => (
-          <div key={index} className="doctor-card col-md-2 col-5 ">
-            <div className="doctor-image">
-              <img src={doctor.image || '/images/default-doctor.jpg'} alt={doctor.name} className='dr-image' />
-            </div>
-            <div className="doctor-details ">
-              <p className="doctor-name">Dr. {doctor.name}</p>
-              <p className="doctor-position">{doctor.position}</p>
-              <div className="doctor-address"><FaLocationDot className='fs-4 icon'/> {doctor.address}</div>
-              <button onClick={()=>navigate(`/doctor/${doctor.id}`)} className="see-more-button "><MdAdd className='fs-4 icon'/> See more details</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </>
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from 'react';
+// import React, { useState } from 'react'
 // import { useNavigate, useParams } from 'react-router-dom';
-// import axios from 'axios';
 // import './Doctors.css';
 // import { IoMdSearch } from 'react-icons/io';
 // import { MdAdd } from "react-icons/md";
 // import { FaLocationDot } from "react-icons/fa6";
 
 // export default function Doctors() {
-//   const { specialtyName } = useParams();
+//   const { specialtyName, } = useParams();
+//   const[searchTerm,setSearchTerm]=useState('');
 //   const navigate = useNavigate();
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [doctors, setDoctors] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   const normalizedSpecialty = specialtyName.replace(/-/g, ' ');
-
-//   useEffect(() => {
-//     const fetchDoctors = async () => {
-//       try {
-//         setLoading(true);
-//         const {data} = await axios.get(`http://localhost:5000/api/doctors/specialty/${normalizedSpecialty}`);
-//         setDoctors(data);
-//         console.log(data);
-//       } catch (error) {
-//         console.error("Error fetching doctors:", error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchDoctors();
-//   }, [normalizedSpecialty]);
-
+//   const doctors = [
+//     {
+//       id:1,
+//       name: 'Vincent Brinky',
+//       specialty: 'Cardiology and Vascular Disease',
+//       image: '/images/doctor1.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:2,
+//       name: 'Chewing Shiniong',
+//       specialty: 'Cardiology and Vascular Disease',
+//       image: '/images/doctor2.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:3,
+//       name: 'Shayn Cannon',
+//       specialty: 'Cardiology and Vascular Disease',
+//       image: '/images/doctor4.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:4,
+//       name: 'Shayn Cannon',
+//       specialty: 'Pediatrics',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:5,
+//       name: 'mohsen Cannon',
+//       specialty: 'Urology',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:6,
+//       name: 'Vincent Brinky',
+//       specialty: 'Dermatology',
+//       image: '/images/doctor1.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:7,
+//       name: 'Chewing Shiniong',
+//       specialty: 'Dermatology',
+//       image: '/images/doctor2.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:8,
+//       name: 'Shayn Cannon',
+//       specialty: 'Dentistry',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:9,
+//       name: 'Shayn Cannon',
+//       specialty: 'Psychiatry',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:10,
+//       name: 'mohsen Cannon',
+//       specialty: 'Urology',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:11,
+//       name: 'Vincent Brinky',
+//       specialty: 'Dentistry',
+//       image: '/images/doctor1.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:12,
+//       name: 'Chewing Shiniong',
+//       specialty: 'Dentistry',
+//       image: '/images/doctor2.jpg',
+//       position:'specialist Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:13,
+//       name: 'Shayn Cannon',
+//       specialty: 'Cardiology and Vascular Disease',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:13,
+//       name: 'Shayn Cannon',
+//       specialty: 'Dermatology',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:14,
+//       name: 'mohsen Cannon',
+//       specialty: 'Orthopedics',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:15,
+//       name: 'Shayn Cannon',
+//       specialty: 'Otolaryngology',
+//       image: '/images/doctor3.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:16,
+//       name: 'mohsen Cannon',
+//       specialty: 'Otolaryngology',
+//       image: '/images/doctor2.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//     {
+//       id:17,
+//       name: 'mohsen Cannon',
+//       specialty: 'Otolaryngology',
+//       image: '/images/doctor2.jpg',
+//       position:'Consultant Cardiologist',
+//       address: '34 Sandpiper Lane,Amaganset Caifornia 11930',
+//     },
+//   ];
+//   const filteredDoctors = doctors.filter(
+//     (doctor) => doctor.specialty.toLowerCase() === specialtyName.replace(/-/g, ' ') &&
+//     doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+//   );
 //   const handleSearchChange = (event) => {
 //     setSearchTerm(event.target.value);
 //   };
-
-//   const filteredDoctors = doctors.filter(doctor =>
-//     doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
-//   );
-
-//   return (
+//   return (<>
 //     <div className='container'>
-//       <div className='d-flex align-items-center justify-content-center my-5'>
+//       <div className='d-flex align-items-center justify-content-center my-5 '>
 //         <div className='w-100 d-flex align-items-center justify-content-center'>
-//           <input
-//             style={{ border: '3px solid var(--first-color)' }}
-//             className="form-control form-control-lg w-50"
-//             type="text"
-//             placeholder="Search for doctor . . ."
-//             value={searchTerm}
-//             onChange={handleSearchChange}
-//           />
+//           <input style={{border: '3px solid var(--first-color) ' }} className="form-control form-control-lg w-50 " type="text" placeholder="Search for doctor . . ." aria-label=".form-control-lg example" value={searchTerm} onChange={handleSearchChange} ></input>
 //           <IoMdSearch className='search' />
 //         </div>
 //       </div>
-
-//       {loading ? (
-//         <p className="text-center">Loading doctors...</p>
-//       ) : filteredDoctors.length === 0 ? (
-//         <p className="text-center">No doctors found for this specialty.</p>
-//       ) : (
-//         <div className="doctors-grid my-5 align-items-center justify-content-center row gap-2">
-//           {filteredDoctors.map((doctor) => (
-//             <div key={doctor.id} className="doctor-card col-md-2 col-5">
-//               <div className="doctor-image">
-//                 <img src={doctor.image || '/images/default-doctor.jpg'} alt={doctor.name} className='dr-image' />
-//               </div>
-//               <div className="doctor-details">
-//                 <p className="doctor-name">Dr. {doctor.name}</p>
-//                 <p className="doctor-position">{doctor.position}</p>
-//                 <div className="doctor-address"><FaLocationDot className='fs-4 icon' /> {doctor.address}</div>
-//                 <button onClick={() => navigate(`/doctor/${doctor.id}`)} className="see-more-button">
-//                   <MdAdd className='fs-4 icon' /> See more details
-//                 </button>
-//               </div>
+//       <div className="doctors-grid my-5 align-items-center justify-content-center row gap-2">
+//         {filteredDoctors.map((doctor,index) => (
+//           <div key={index} className="doctor-card col-md-2 col-5 ">
+//             <div className="doctor-image">
+//               <img src={doctor.image || '/images/default-doctor.jpg'} alt={doctor.name} className='dr-image' />
 //             </div>
-//           ))}
-//         </div>
-//       )}
+//             <div className="doctor-details ">
+//               <p className="doctor-name">Dr. {doctor.name}</p>
+//               <p className="doctor-position">{doctor.position}</p>
+//               <div className="doctor-address"><FaLocationDot className='fs-4 icon'/> {doctor.address}</div>
+//               <button onClick={()=>navigate(`/doctor/${doctor.id}`)} className="see-more-button "><MdAdd className='fs-4 icon'/> See more details</button>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
 //     </div>
-//   );
+//   </>
+//   )
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axiosInstance from '../../api/axiosInstance';
+import { FaLocationDot } from "react-icons/fa6";
+import { MdAdd } from "react-icons/md";
+import { IoMdSearch } from "react-icons/io";
+import './Doctors.css';
+
+export default function Doctors() {
+  const { specialtyName } = useParams();
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  // دالة لتحويل اسم التخصص إلى Title Case مع 'and' صغيرة
+  function formatSpecialtyName(name) {
+    return name
+      .split('-')
+      .map(word => {
+        if (word.toLowerCase() === 'and') return 'and';
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(' ');
+  }
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      if (!specialtyName) return;
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        const formattedName = formatSpecialtyName(specialtyName);
+        const encodedName = encodeURIComponent(formattedName);
+        console.log('Fetching doctors for specialty:', formattedName);
+
+        const res = await axiosInstance.get(`/Doctors/by-specialization/${encodedName}`);
+        setDoctors(res.data);
+
+        if (res.data.length === 0) {
+          console.log('No doctors found for this specialty:', formattedName);
+        }
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          setDoctors([]);
+          setError('No doctors found in this specialty.');
+          console.log('No doctors found for this specialty (404).');
+        } else {
+          setError('Failed to load doctors');
+          console.error(err);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctors();
+  }, [specialtyName]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredDoctors = doctors.filter(doctor =>
+    doctor.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className='container'>
+      {/* صندوق البحث */}
+      <div className='d-flex align-items-center justify-content-center my-5'>
+        <div className='w-100 d-flex align-items-center justify-content-center'>
+          <input
+            style={{ border: '3px solid var(--first-color)' }}
+            className="form-control form-control-lg w-50"
+            type="text"
+            placeholder="Search for doctor . . ."
+            aria-label="Search for doctor"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <IoMdSearch className='search' />
+        </div>
+      </div>
+
+      {loading && <p>Loading...</p>}
+      {error && <p className='alert alert-danger' >{error}</p>}
+      {!loading && filteredDoctors.length === 0 && !error && <p>No doctors found.</p>}
+
+      <div className="doctors-grid my-5 align-items-center justify-content-center row gap-2">
+        {filteredDoctors.map((doctor) => (
+          <div key={doctor.doctorId} className="doctor-card col-md-2 col-5">
+            <div className="doctor-image">
+              <img
+                src={doctor.doctorImgUrl || '/images/default-doctor.jpg'}
+                alt={doctor.fullName}
+                className='dr-image'
+              />
+            </div>
+            <div className="doctor-details">
+              <p className="doctor-name">Dr. {doctor.fullName}</p>
+              <p className="doctor-position">{doctor.specialtyName}</p>
+              <div className="doctor-address">
+                <FaLocationDot className='fs-4 icon' /> {doctor.address1}
+              </div>
+              <button
+                onClick={() => navigate(`/doctor/${doctor.doctorId}`)}
+                className="see-more-button"
+              >
+                <MdAdd className='fs-4 icon' /> See more details
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

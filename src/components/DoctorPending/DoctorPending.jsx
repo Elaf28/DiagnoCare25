@@ -9,26 +9,27 @@ export default function DoctorPending() {
             <Card className="p-4 shadow rounded-4" style={{ maxWidth: '600px', width: '100%' }}>
                 <Card.Body>
                     <h2 className="mb-4" style={{ color: 'var(--first-color)' }}>
-                        Thank You for Joining Us!
+                        Welcome to DiagnoCare!
                     </h2>
                     <Alert variant="info" className="mb-4 text-start">
                         <h5 className="alert-heading">Your Account is Awaiting Approval</h5>
                         <p>
-                            We’ve received your registration request and it’s currently under review by our admin team.
+                            Thank you for registering with us. Your account is currently under review by the admin team.
                         </p>
                         <p className="mb-0">
-                            You’ll be able to access your account once it’s approved. Please check back periodically to log in.
+                            While your account is pending approval, you can still access your profile and update your information.
+                            Once approved, your profile will be publicly visible to patients.
                         </p>
                     </Alert>
                     <p className="mb-4 text-muted">
-                        If you have any questions, feel free to <a href="mailto:diagnocaree@gmail.com">contact us</a>. We’re here to help!
+                        You can monitor your approval status directly from your profile page. If you have any questions, feel free to <a href="mailto:diagnocaree@gmail.com">contact us</a>.
                     </p>
                     <Button
                         style={{ background: 'var(--first-color)', border: 'none' }}
                         as={Link}
-                        to="/login"
+                        to="/doctorProfile"
                     >
-                        Back to Login
+                        Go to Your Profile
                     </Button>
                 </Card.Body>
             </Card>

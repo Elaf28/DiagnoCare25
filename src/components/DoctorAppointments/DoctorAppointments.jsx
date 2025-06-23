@@ -1,34 +1,28 @@
 // src/components/DoctorBookings.jsx
-import React, { useState, useEffect } from 'react';
-import { Card, Alert, Table, Button, Spinner, Modal, Form } from 'react-bootstrap';
-import { FaCalendarCheck, FaTimesCircle, FaCheckCircle, FaUser, FaBan, FaKey } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Card, Alert, Table, Button, Spinner, Modal } from 'react-bootstrap';
+import { FaCalendarCheck, FaTimesCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import './DoctorAppointments.css'; 
 
 export default function DoctorAppointments() {
-    // تعليق: البيانات الثابتة (Static Data) للحجوزات
-    // كل الحجوزات هنا مفترض أنها "مدفوعة" (isPaid: true)
     const initialMockBookings = [
         {
             id: 1,
             patientId: 101, 
             patientName: 'Ahmed Mahmoud',
             appointmentDate: '2025-06-25',
-            appointmentTime: '09:00 AM',
-            status: 'Pending', // حالة معلقة، لكنها مفترض مدفوعة
-            uniqueKey: '444545', 
-            currentUniqueKeyInput: '',
-            isPaid: true // افتراض أنها مدفوعة
+            appointmentTime: '09:00 ',
+            status: 'Pending',
+            isPaid: true
         },
         {
             id: 2,
             patientId: 102,
             patientName: 'Mona Ali',
             appointmentDate: '2025-06-26',
-            appointmentTime: '11:30 AM',
-            status: 'Confirmed', 
-            uniqueKey: 'DEF456GHI',
-            currentUniqueKeyInput: '',
+            appointmentTime: '11:30 ',
+            status: 'Completed',
             isPaid: true 
         },
         {
@@ -36,10 +30,8 @@ export default function DoctorAppointments() {
             patientId: 103,
             patientName: 'Sara Mostafa',
             appointmentDate: '2025-06-20', 
-            appointmentTime: '02:00 PM',
-            status: 'Done', 
-            uniqueKey: 'JKL789MNO',
-            currentUniqueKeyInput: '',
+            appointmentTime: '02:00 ',
+            status: 'Canceled',
             isPaid: true 
         },
         {
@@ -47,11 +39,9 @@ export default function DoctorAppointments() {
             patientId: 104,
             patientName: 'Khaled Hassan',
             appointmentDate: '2025-06-28',
-            appointmentTime: '04:00 PM',
-            status: 'Canceled', 
-            uniqueKey: 'PQR012STU',
-            currentUniqueKeyInput: '',
-            isPaid: true // حتى الملغية مفترض أنها كانت مدفوعة وظهرت للدكتور
+            appointmentTime: '04:00 ',
+            status: 'Pending',
+            isPaid: true
         },
         {
             id: 5,
@@ -59,14 +49,11 @@ export default function DoctorAppointments() {
             patientName: 'Fatma Reda',
             appointmentDate: '2025-07-01',
             appointmentTime: '10:00 AM',
-            status: 'Pending', // حالة معلقة، لكنها مفترض مدفوعة
-            uniqueKey: '444545', 
-            currentUniqueKeyInput: '',
-            isPaid: true // افتراض أنها مدفوعة
+            status: 'Completed',
+            isPaid: true
         },
     ];
 
-    // تعليق: بيانات ثابتة (Mock Data) لتفاصيل المريض
     const mockPatients = {
         101: {
             id: 101,
@@ -136,26 +123,23 @@ export default function DoctorAppointments() {
     };
 
     const [bookings, setBookings] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [showPatientDetailsModal, setShowPatientDetailsModal] = useState(false);
-    const [selectedPatient, setSelectedPatient] = useState(null); 
-    const [isPatientDetailsLoading, setIsPatientDetailsLoading] = useState(false);
-    const [patientDetailsError, setPatientDetailsError] = useState(null);
-    
-    // تعليق: دالة "وهمية" لجلب الحجوزات من البيانات الثابتة
-    // لا يوجد فلترة هنا، لأن جميع الحجوزات مفترض أنها مدفوعة
-    const fetchDoctorBookings = () => {
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const [showPatientDetailsModal, setShowPatientDetailsModal] = React.useState(false);
+    const [selectedPatient, setSelectedPatient] = React.useState(null);
+    const [isPatientDetailsLoading, setIsPatientDetailsLoading] = React.useState(false);
+    const [patientDetailsError, setPatientDetailsError] = React.useState(null);
+
+    // محاكاة جلب الحجوزات
+    React.useEffect(() => {
         setIsLoading(true);
         setError(null);
         setTimeout(() => {
-            // لا يوجد filter هنا: نأخذ جميع الحجوزات كما هي
             setBookings(initialMockBookings);
             setIsLoading(false);
-        }, 500); 
-    };
+        }, 500);
+    }, []);
 
-    // تعليق: دالة "وهمية" لجلب تفاصيل مريض معين من البيانات الثابتة
     const fetchPatientDetails = (patientId) => {
         setIsPatientDetailsLoading(true);
         setPatientDetailsError(null);
@@ -172,82 +156,26 @@ export default function DoctorAppointments() {
         }, 500);
     };
 
-    // تعليق: دالة لتحديث الـ currentUniqueKeyInput لحجز معين في الـ frontend فقط
-    const handleUniqueKeyInputChange = (bookingId, value) => {
-        setBookings(prevBookings => prevBookings.map(b =>
-            b.id === bookingId ? { ...b, currentUniqueKeyInput: value } : b
-        ));
-    };
-
-    // تعليق: دالة لتأكيد الحجز بالـ Unique Key (بتستخدم البيانات الثابتة)
-    const handleConfirmBooking = (bookingId) => {
-        const bookingToConfirm = bookings.find(b => b.id === bookingId);
-        if (!bookingToConfirm) return;
-
-        const { currentUniqueKeyInput, uniqueKey } = bookingToConfirm;
-
-        if (!currentUniqueKeyInput) {
-            Swal.fire('Warning', 'Please enter the Unique Key.', 'warning');
-            return;
-        }
-
-        // تعليق: التحقق من الـ Unique Key المدخل بالـ Key الفعلي
-        if (currentUniqueKeyInput !== uniqueKey) {
-            Swal.fire('Error', 'Invalid Unique Key. Please try again.', 'error');
-            return;
-        }
-
-        Swal.fire({
-            title: 'Confirm Appointment?',
-            text: "Are you sure you want to confirm this appointment with the provided key?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#28a745',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Yes, Confirm!',
-            cancelButtonText: 'No, Keep Pending'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // تعليق: تحديث الـ state محلياً للبيانات الثابتة
-                // وتغيير الحالة إلى 'Confirmed' ومسح الـ input
-                setBookings(prevBookings => prevBookings.map(b =>
-                    b.id === bookingId ? { ...b, status: 'Confirmed', currentUniqueKeyInput: '' } : b
-                ));
-                Swal.fire('Confirmed!', 'Appointment has been confirmed.', 'success');
-            }
-        });
-    };
-
-    // تعليق: دالة لإلغاء الحجز (بتستخدم البيانات الثابتة)
     const handleCancelBooking = (bookingId) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "Do you really want to cancel this appointment? This action cannot be undone!",
+            text: "Do you want to cancel this appointment? This action cannot be undone.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, cancel it!",
-            cancelButtonText: "No, keep it"
+            confirmButtonText: "Yes, Cancel",
+            cancelButtonText: "No, Keep it"
         }).then((result) => {
             if (result.isConfirmed) {
-                // تعليق: تحديث الـ state محلياً للبيانات الثابتة
-                // وتغيير الحالة إلى 'Canceled'
-                setBookings(prevBookings => prevBookings.map(b =>
+                setBookings(prev => prev.map(b =>
                     b.id === bookingId ? { ...b, status: 'Canceled' } : b
                 ));
                 Swal.fire('Canceled!', 'Appointment has been canceled.', 'success');
-                // تعليق: لا حاجة لإعادة fetchDoctorBookings هنا، لأن الحجز الملغي سيظل معروضًا إذا كانت الـ API بترجع الملغي المدفوع
             }
         });
     };
 
-    // تعليق: Hook لجلب البيانات أول ما المكون يترندر
-    useEffect(() => {
-        fetchDoctorBookings();
-    }, []);
-
-    // تعليق: عرض حالات التحميل والأخطاء
     if (isLoading) {
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>
@@ -262,7 +190,7 @@ export default function DoctorAppointments() {
         return (
             <Alert variant="danger" className="text-center my-4">
                 <FaTimesCircle className="me-2" /> Error: {error}
-                <Button variant="link" onClick={fetchDoctorBookings} className="ms-2">Retry</Button>
+                <Button variant="link" onClick={() => window.location.reload()} className="ms-2">Retry</Button>
             </Alert>
         );
     }
@@ -286,74 +214,40 @@ export default function DoctorAppointments() {
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Status</th>
-                                <th>Unique Key / Confirmation</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {bookings.map(booking => (
                                 <tr key={booking.id}>
-                                    <td data-label="Patient Name">
-                                        {booking.patientName || 'N/A'}
-                                    </td>
+                                    <td data-label="Patient Name">{booking.patientName || 'N/A'}</td>
                                     <td data-label="Date">{new Date(booking.appointmentDate).toLocaleDateString()}</td>
                                     <td data-label="Time">{booking.appointmentTime}</td>
                                     <td data-label="Status">
                                         <span className={`badge bg-${
-                                            booking.status === 'Confirmed' ? 'success' :
+                                            booking.status === 'Completed' ? 'success' :
                                             booking.status === 'Pending' ? 'warning' :
-                                            booking.status === 'Done' || booking.status === 'Completed' ? 'primary' :
                                             booking.status === 'Canceled' ? 'danger' :
                                             'secondary'
                                         }`}>
-                                            {booking.status === 'Done' || booking.status === 'Completed' ? 'Completed' : booking.status}
+                                            {booking.status}
                                         </span>
                                     </td>
-                                    <td data-label="Unique Key / Confirmation">
-                                        {/* تعليق: حقل إدخال الـ Unique Key وزرار التأكيد يظهر فقط للحجوزات الـ Pending */}
-                                        {booking.status === 'Pending' ? (
-                                            <>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter Unique Key"
-                                                    value={booking.currentUniqueKeyInput}
-                                                    onChange={(e) => handleUniqueKeyInputChange(booking.id, e.target.value)}
-                                                    className="mb-2"
-                                                    style={{ maxWidth: '150px', display: 'inline-block' }}
-                                                />
-                                                <Button
-                                                    variant="success"
-                                                    size="sm"
-                                                    className="ms-2 mb-1 "
-                                                    onClick={() => handleConfirmBooking(booking.id)}
-                                                >
-                                                    Confirm
-                                                </Button>
-                                            </>
-                                        ) : (
-                                            // تعليق: لو الحجز مؤكد أو تم، نعرض الـ uniqueKey أو 'N/A'
-                                            booking.uniqueKey || 'N/A' 
-                                        )}
-                                    </td>
                                     <td data-label="Actions">
-                                        {/* زرار عرض تفاصيل المريض */}
                                         <button
-                                            size="sm"
-                                            className="m-2 btn btn-outline-primary"
+                                            className="btn btn-outline-primary m-2"
                                             onClick={() => fetchPatientDetails(booking.patientId)}
                                             disabled={isPatientDetailsLoading}
                                         >
                                             Patient Details
                                         </button>
 
-                                        {/* زرار إلغاء الحجز - يظهر لو الحجز مش ملغي أو مكتمل */}
-                                        {(booking.status !== 'Canceled' && booking.status !== 'Done' && booking.status !== 'Completed') && (
+                                        {(booking.status !== 'Canceled' && booking.status !== 'Completed') && (
                                             <button
-                                                className='m-2 btn btn-outline-danger'
-                                                size="sm"
+                                                className='btn btn-outline-danger m-2'
                                                 onClick={() => handleCancelBooking(booking.id)}
                                             >
-                                              Cancel
+                                                Cancel
                                             </button>
                                         )}
                                     </td>
@@ -364,7 +258,6 @@ export default function DoctorAppointments() {
                 )}
             </Card.Body>
 
-            {/* Modal لعرض تفاصيل المريض */}
             <Modal show={showPatientDetailsModal} onHide={() => setShowPatientDetailsModal(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Patient Details</Modal.Title>

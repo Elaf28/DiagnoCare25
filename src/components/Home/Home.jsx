@@ -1,5 +1,9 @@
 import React from 'react';
 import './Home.css';
+import home2 from '../../assets/images/home2.png';
+import doctor from '../../assets/images/doctor 2.png';
+import robot from '../../assets/images/robot2.png';
+import about from '../../assets/images/about.png';
 import { Link } from 'react-router-dom';
 // import { useTranslation } from 'react-i18next';
 export default function Home() {
@@ -10,7 +14,7 @@ export default function Home() {
                     <h2 className='home__title fs-1'>Your health <br /> is always <br /> in the first place.</h2>
                     <p className='home__description '>We combine the latest technology with medical expertise. Get an accurate diagnosis for your health condition in record time.</p>
                 </div>
-                <div className='image1 '><img className='image2' src="/images/home2.png" alt="" /></div>
+                <div className='image1 '><img className='image2' src={home2} alt="" /></div>
             </div>
             <div id='our-services' className="services">
                 <hr className='w-50'/>
@@ -19,7 +23,7 @@ export default function Home() {
                     <div className='col-md-5 ' >
                         <Link className='link' to={`specialties`}>
                             <div className="cards__cardHome allCard">
-                                <div className="card__img "><img className='image__CardHome' src="/images/doctor 2.png" alt="" /></div>
+                                <div className="card__img "><img className='image__CardHome' src={doctor} alt="" /></div>
                                 <div className='card-body card__description px-1 pt-2'>
                                     <p className='card__description  fs-5'>Do you want to contact a doctor to diagnose your condition?</p>
                                 </div>
@@ -29,7 +33,7 @@ export default function Home() {
                     <div className='col-md-5 '>
                         <Link className='link' to={`diagnosis`}>
                             <div className="cards__cardHome allCard">
-                                <div className="card__img "><img className='image__CardHome' src="/images/robot2.png" alt="" /></div>
+                                <div className="card__img "><img className='image__CardHome' src={robot} alt="" /></div>
                                 <div className='card-body card__description px-1 pt-2'>
                                     <p className='card__description fs-5'>Do you want to diagnose your condition through the site?</p>
                                 </div>
@@ -48,7 +52,7 @@ export default function Home() {
 
         <div className="row d-flex align-items-center justify-content-around gap-4">
             <div className='about-image col-md-5'>
-                <img src="/images/about.png" alt="DiagnoCare Medical Platform" className="img-fluid" />
+                <img src={about} alt="DiagnoCare Medical Platform" className="img-fluid" />
             </div>
             <div className='about__description-container col-md-5'>
                 <p className='about__description fs-5 lh-base'>

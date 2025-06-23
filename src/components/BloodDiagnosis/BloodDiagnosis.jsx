@@ -67,7 +67,7 @@ export default function BloodDiagnosis(){
 
     async function sendBloodDataToApi(){
         try {
-            let {data}= await axios.post(`https://e617-2c0f-fc89-802d-d37c-a3-15eb-db5e-bb5.ngrok-free.app/predict`,bloodData); 
+            let {data}= await axios.post(`https://f2d8-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,bloodData); 
             console.log(data)
             setDiagnosis(data.Diagnosis);
             setLoading(false);
@@ -215,7 +215,7 @@ return (
         </form>
         {diagnosis && (
             <div className="alert alert-primary m-3 fs-5" role="alert">
-                <p>Predicted Diagnosis is : {diagnosis}</p>
+                <p> <strong>Predicted Diagnosis is :</strong> {diagnosis}</p>
             </div>
         )}
         
