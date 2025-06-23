@@ -147,7 +147,7 @@ export default function DoctorDashboard() {
     if (confirm.isConfirmed) {
       try {
         await axiosInstance.delete(`/Doctors/${id}`);
-        setAllDoctorsData(prev => prev.filter(doc => doc.id !== id));
+        setAllDoctorsData(prev => prev.filter(doc => doc.doctorId!== id));
         Swal.fire("Deleted!", "The doctor has been deleted.", "success");
       } catch (err) {
         console.error(err);

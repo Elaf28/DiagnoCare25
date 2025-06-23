@@ -335,8 +335,9 @@ export default function Doctor() {
                   <h6 className='d-flex align-items-center'><FaCircle className='fa-check-circle icon me-2' /> Work place</h6>
                   <p className='ps-4 m-0'>{docInfo.workplace}</p>
                 </ListGroup.Item>
-                <ListGroup.Item className='d-flex align-items-center'>
-                  <FaLocationDot className='fs-5 icon me-1' /> {docInfo.address1}, {docInfo.address2}
+                <ListGroup.Item>
+                  <h6 className='d-flex align-items-center'><FaLocationDot className='fs-5 icon me-1' />Address</h6>
+                  <p className='ps-4 m-0'> {docInfo.address1}, {docInfo.address2}</p>
                 </ListGroup.Item>
                 <ListGroup.Item className='d-flex align-items-center'>
                   <FaCircle className='fa-check-circle icon me-2' /> <span className='fw-semibold'>Consultation Fee:</span> <span className='text-success fw-bolder ps-1'>$ {docInfo.fees}</span>
