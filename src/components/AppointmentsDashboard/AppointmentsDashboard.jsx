@@ -125,6 +125,7 @@ export default function AppointmentsDashboard() {
             try {
                 const response = await axiosInstance.get('/Appointments/admin/all'); 
                 setAppointments(response.data);
+                console.log(response.data)
             } catch (err) {
                 console.error(err);
                 setError('Failed to fetch appointments');
@@ -185,13 +186,13 @@ export default function AppointmentsDashboard() {
                                             <td>{appointment.appointmentId}</td>
                                             <td>{appointment.patientFullName}</td>
                                             <td>{appointment.doctorFullName}</td>
-                                            <td>{appointment.date}</td>
+                                            <td>{new Date(appointment.date).toLocaleDateString('en-GB')}</td> 
                                             <td>{appointment.time}</td>
                                             <td>
-                                                <span className={`badge px-3 py-2 bg-${
+                                                <span className={`status-appointments badge px-3 py-2 bg-${
                                                     status === 'completed' ? 'success' :
                                                     status === 'pending' ? 'warning' :
-                                                    status === 'cancelled' ? 'danger' :
+                                                    status === 'canceled' ? 'danger' :
                                                     'secondary'
                                                 }`}>
                                                     {appointment.status}

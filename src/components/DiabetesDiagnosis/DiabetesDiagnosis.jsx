@@ -35,7 +35,7 @@ export default function DiabetesDiagnosis() {
     }
     async function sendDiabetesDataToApi(){
         try {
-            let {data}= await axios.post(`https://91eb-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,diabetesData); 
+            let {data}= await axios.post(`https://Mohamed411s-Health-Care-System.hf.space/predict/diabetes`,diabetesData); 
             console.log(data)
                 setDiagnosis(data.result);
                 setLoading(false);

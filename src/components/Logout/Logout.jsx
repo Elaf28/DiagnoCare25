@@ -10,15 +10,15 @@ export default function Logout() {
   useEffect(() => {
     const performLogout = async () => {
       try {
-        await dispatch(logoutUser()).unwrap(); // تنفيذ الـ logout
-        navigate('/login'); // توجيه لـ /login بعد النجاح
+        await dispatch(logoutUser()).unwrap(); 
+        navigate('/login'); 
       } catch (error) {
-        console.error('Logout failed:', error); // تسجيل الخطأ لو حصل
-        navigate('/login'); // توجيه لـ /login حتى لو فشل
+        console.error('Logout failed:', error); 
+        navigate('/login'); 
       }
     };
     performLogout();
   }, [dispatch, navigate]);
 
-  return null; // لا حاجة لـ UI لأن الـ redirect بيتم فورًا
+  return null; 
 };

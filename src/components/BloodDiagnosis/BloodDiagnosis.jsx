@@ -67,7 +67,7 @@ export default function BloodDiagnosis(){
 
     async function sendBloodDataToApi(){
         try {
-            let {data}= await axios.post(`https://f2d8-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,bloodData); 
+            let {data}= await axios.post(`https://Mohamed411s-Health-Care-System.hf.space/predict/anemia`,bloodData); 
             console.log(data)
             setDiagnosis(data.Diagnosis);
             setLoading(false);
@@ -88,7 +88,7 @@ export default function BloodDiagnosis(){
 
 return (
     <div className="blood-test-container container ">
-        <h3 className='blood-title'><MdOutlineBloodtype className='blood__icon' /><p>Blood Test Diagnosis</p></h3>
+        <h3 className='blood-title'><MdOutlineBloodtype className='blood__icon' /><p>AnemiaTypes Classification</p></h3>
         <p className='text-center'>Enter your blood test bloodData below to check for possible conditions.</p>
         <form onSubmit={submitBloodForm}>
         <div className='row '>

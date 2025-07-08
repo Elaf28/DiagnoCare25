@@ -20,7 +20,6 @@ export default function Admin() {
         navigate('/login');
     };
 
-    // Spinner أثناء تحميل حالة المصادقة
     if (status === 'loading') {
         return (
             <div className="text-center p-5">

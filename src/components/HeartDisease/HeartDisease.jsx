@@ -40,7 +40,7 @@ export default function HeartDisease() {
 
     async function sendHeartDataToApi(){
         try {
-            let {data}= await axios.post(`https://83bb-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict`,heartData); 
+            let {data}= await axios.post(`https://Mohamed411s-Health-Care-System.hf.space/predict/heart`,heartData); 
             // console.log(data)
             setPredictionResult(data.result);
             setLoading(false);

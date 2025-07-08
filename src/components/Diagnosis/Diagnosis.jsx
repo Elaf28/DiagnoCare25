@@ -9,7 +9,7 @@ export default function Diagnosis() {
     <div className='container '>
       <div className="cards_Diagnosis row d-flex align-items-center justify-content-around  ">
         <div className='col-md-4' >
-          <Link className='link' to={`specialties`}>
+          <Link className='link' to={`/chatBot`}>
             <div className="cards__cardDiagnosis allCard">
                 <div className="card__img_diagnosis w-100"><img className='image__CardDiagnosis' src={chat} alt="" /></div>
                 <div className='card-body-diagnosis card__description_diagnosis px-1 pt-2  d-flex align-items-center justify-content-center'>
@@ -34,7 +34,7 @@ export default function Diagnosis() {
                 <div className="cards__cardDiagnosis allCard">
                     <div className="card__img_diagnosis w-100"><img className='image__CardDiagnosis' src={lab} alt=""  /></div>
                     <div className='card-body-diagnosis card__description_diagnosis px-1 pt-2  d-flex align-items-center justify-content-center'>
-                        <p className='card__description_diagnosis fs-4'>Do you want an initial assessment for Diabetes, CBC and Heart Disease?
+                        <p className='card__description_diagnosis fs-4'>Do you want an initial assessment for Diabetes, AnemiaTypes Classification and Heart Disease?
                         </p>
                     </div>
                 </div>

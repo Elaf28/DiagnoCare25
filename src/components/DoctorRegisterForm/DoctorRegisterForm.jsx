@@ -337,9 +337,14 @@ export default function DoctorRegisterForm() {
             </div>
           </div>
           </div>
-      <button type="submit" className="btn btn-primary mt-3" disabled={isLoading}>
-        {isLoading ? 'Registering...' : 'Sign Up'}
-      </button>
+      <div className='container'>
+            <button type="submit" className="register-submit-button" disabled={isLoading}>
+              {isLoading ? (
+                <div><span className="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status">Registering...</span></div>
+              ) : 'Sign Up'}
+            </button>
+          </div>
     </form>
   );
 }
+  

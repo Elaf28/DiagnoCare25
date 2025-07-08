@@ -214,25 +214,23 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { useParams } from 'react-router-dom';
 import { FaCircle } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
-import { Card, Image, ListGroup } from 'react-bootstrap';
+import { Card, ListGroup } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import { useSelector } from 'react-redux';
 import axiosPublic from '../../api/axiosPublic';  
 import axiosInstance from '../../api/axiosInstance';
 import './DoctorDetails.css';
-
+import axios from 'axios';
 export default function Doctor() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [slots, setSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [loading, setLoading] = useState(true);
   const [docInfo, setDocInfo] = useState(null);
-  const patientId = useSelector((state) => state.auth.user?.id);
-
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
   useEffect(() => {
     const fetchDoctorDetails = async () => {
       try {
@@ -278,44 +276,46 @@ export default function Doctor() {
   const handleSelect = (slot) => {
     setSelectedSlot(slot);
   };
-
   const confirmBooking = async () => {
-    const { id: slotId, startTime, dayOfWeek } = selectedSlot;
-    const date = getNextDateForDay(dayOfWeek);
+  const { id: slotId, startTime, dayOfWeek } = selectedSlot;
+  const date = getNextDateForDay(dayOfWeek);
+  const formattedTime = startTime.length === 5 ? `${startTime}:00` : startTime;
 
-    const result = await Swal.fire({
-      title: 'Confirm Booking',
-      text: `You selected ${dayOfWeek} at ${startTime}. This will take you to the payment page.`,
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Proceed to Payment'
-    });
+  const result = await Swal.fire({
+    title: 'Confirm Booking',
+    text: `You selected ${dayOfWeek} at ${startTime}. This will take you to the payment page.`,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Proceed to Payment'
+  });
 
-    if (result.isConfirmed) {
-      try {
-        await axiosInstance.post(`/api/bookings`, {
-          patientId: patientId,
+  if (result.isConfirmed) {
+    try {
+      const response = await axios.post(
+        'http://dcare.runasp.net/api/Appointments/book',
+        {
           doctorId: id,
-          slotId: slotId,
-          date: date,
-          time: startTime
-        });
+          availabilityId: slotId,
+          date,
+          time: formattedTime
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
 
-        Swal.fire({
-          title: 'Booking Reserved',
-          text: 'Your appointment has been reserved. Please complete the payment to confirm it.',
-          icon: 'success',
-          confirmButtonText: 'Go to Payment'
-        }).then(() => {
-          navigate('/payment');
-        });
+      const sessionId = response.data.sessionId;
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout({ sessionId });
 
-      } catch (err) {
-        console.error('Booking failed:', err);
-        Swal.fire('Error', 'Booking failed. Try again.', 'error');
-      }
+    } catch (err) {
+      console.error('Booking failed:', err);
+      Swal.fire('Error', 'Booking or payment failed. Try again.', 'error');
     }
-  };
+  }
+};
 
   return (
     <div className='container'>
@@ -324,7 +324,6 @@ export default function Doctor() {
           <Card className="border border-dark-subtle shadow-sm">
             <Card.Body className="d-flex flex-column align-items-center">
               <h4 style={{ color: 'var(--first-color)' }}>Dr. {docInfo.fullName}</h4>
-              <p className="text-muted mb-4">{docInfo.Professional_Title} {docInfo.specialization}</p>
 
               <ListGroup variant="flush" className="w-100">
                 <ListGroup.Item>
@@ -336,11 +335,13 @@ export default function Doctor() {
                   <p className='ps-4 m-0'>{docInfo.workplace}</p>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <h6 className='d-flex align-items-center'><FaLocationDot className='fs-5 icon me-1' />Address</h6>
-                  <p className='ps-4 m-0'> {docInfo.address1}, {docInfo.address2}</p>
+                  <h6 className='d-flex align-items-center'><FaLocationDot className='fs-5 icon me-1' /> Address</h6>
+                  <p className='ps-4 m-0'>{docInfo.address1}, {docInfo.address2}</p>
                 </ListGroup.Item>
                 <ListGroup.Item className='d-flex align-items-center'>
-                  <FaCircle className='fa-check-circle icon me-2' /> <span className='fw-semibold'>Consultation Fee:</span> <span className='text-success fw-bolder ps-1'>$ {docInfo.fees}</span>
+                  <FaCircle className='fa-check-circle icon me-2' />
+                  <span className='fw-semibold'>Consultation Fee:</span>
+                  <span className='text-success fw-bolder ps-1'>$ {docInfo.fees}</span>
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
@@ -359,7 +360,9 @@ export default function Doctor() {
             ) : (
               Object.entries(groupedByDate).map(([date, slots]) => (
                 <div key={date} className="mb-4">
-                  <h6 style={{ color: 'var(--first-color)' }}>{date}</h6>
+                  <h6 style={{ color: 'var(--first-color)' }}>
+                    {new Date(date).toLocaleDateString(undefined, { weekday: 'long' })} ({date}) 
+                  </h6>
                   <div className="slot-buttons">
                     {slots.map((slot) => (
                       <button
@@ -388,9 +391,3 @@ export default function Doctor() {
     </div>
   );
 }
-
-
-
-
-
-

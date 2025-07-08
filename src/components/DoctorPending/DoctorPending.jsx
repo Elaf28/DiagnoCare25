@@ -1,4 +1,3 @@
-// src/components/DoctorPendingApprovalPage.jsx
 import React from 'react';
 import { Card, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

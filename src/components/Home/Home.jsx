@@ -5,7 +5,6 @@ import doctor from '../../assets/images/doctor 2.png';
 import robot from '../../assets/images/robot2.png';
 import about from '../../assets/images/about.png';
 import { Link } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
 export default function Home() {
     return (<>
         <div className='container my-5'> 

@@ -5,20 +5,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import { loginUser, resetAuthStatus } from '../../Redux/authSlice';
 import { fetchPatientProfile } from '../../Redux/patientProfileReducer';
-import login  from '../../assets/images/login.png';
-import Swal from 'sweetalert2'; 
+import login from '../../assets/images/login.png';
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(''); 
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { status: authStatus, error: authError, isAuthenticated, user } = useSelector((state) => state.auth);
+
+    const { status: authStatus, isAuthenticated, user } = useSelector((state) => state.auth);
     const { status: profileStatus, error: profileError, data: profileData } = useSelector((state) => state.patientProfile);
     const isLoading = authStatus === 'loading' || profileStatus === 'loading';
     const hasRedirected = useRef(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage('');
+
         try {
             const resultAction = await dispatch(loginUser({ email, password })).unwrap();
 
@@ -27,15 +32,20 @@ export default function Login() {
             }
         } catch (error) {
             console.error("Login error:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Login Failed',
-                text: error || 'Please check your credentials.',
-                confirmButtonColor: '#d33',
-            });
-        }
-    };
 
+            let message = 'Something went wrong. Please try again later.';
+
+            if (error === 'Network Error') {
+                message = 'No internet connection. Please check your network and try again.';
+            } else if (error === 'Request failed with status code 400') {
+                message = 'Incorrect email or password. Please try again.';
+            } else {
+                message = `Unexpected error . Please try again later.`;
+                }
+            setErrorMessage(message);
+        }
+    
+    };
 
     useEffect(() => {
         return () => {
@@ -81,7 +91,12 @@ export default function Login() {
                 </div>
                 <div className="login-box">
                     <h1 className='login-title text-center'>LOGIN</h1>
-                    {(!isAuthenticated && authStatus === 'failed') && <p className="text-danger text-center">Login failed. {authError || 'Please check your credentials.'}</p>}
+
+                    {errorMessage && (
+                        <div className="alert alert-danger text-center" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="input-field-container">

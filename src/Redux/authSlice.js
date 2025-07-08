@@ -1,231 +1,7 @@
-// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { jwtDecode } from 'jwt-decode';
-// import axiosPublic from '../api/axiosPublic';
-
-// export const registerPatient = createAsyncThunk(
-//     'auth/registerPatient',
-//     async (patientData, thunkAPI) => {
-//         try {
-//         const response = await axiosPublic.post('/Patients/register', patientData);
-//         return response.data.message;
-//         } catch (error) {
-//         return thunkAPI.rejectWithValue(
-//             error.response?.data?.message || error.message || 'Patient registration failed'
-//         );
-//         }
-//     }
-// );
-
-// export const registerDoctor = createAsyncThunk(
-//     'auth/registerDoctor',
-//     async (doctorData, thunkAPI) => {
-//         try {
-//         const response = await axiosPublic.post('/Doctors/register', doctorData);
-//         return response.data.message;
-//         } catch (error) {
-//         return thunkAPI.rejectWithValue(
-//             error.response?.data?.message || 'Doctor registration endpoint not yet available'
-//         );
-//         }
-//     }
-// );
-
-// export const loginUser = createAsyncThunk(
-//     'auth/loginUser',
-//     async ({ email, password }, thunkAPI) => {
-//         const { dispatch, rejectWithValue } = thunkAPI;
-
-//         try {
-//         const response = await axiosPublic.post('/Auth/login', { email, password });
-//         const { token, role, status } = response.data;
-
-//         let userId = null;
-//         let userEmailFromToken = email;
-
-//         if (token) {
-//             try {
-//             const decodedToken = jwtDecode(token);
-//             userId = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
-//             userEmailFromToken = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'];
-//             } catch (decodeError) {
-//             console.warn('Error decoding token:', decodeError);
-//             }
-
-//             localStorage.setItem('token', token);
-//         }
-
-//         const user = {
-//             id: userId,
-//             email: userEmailFromToken,
-//             role,
-//             status: status || undefined,
-//         };
-
-//         localStorage.setItem('role', role);
-//         if (userEmailFromToken) localStorage.setItem('userEmail', userEmailFromToken);
-//         if (userId) localStorage.setItem('userId', userId);
-//         if (status) localStorage.setItem('status', status);
-
-//         dispatch(loginSuccess(user));
-//         return user;
-//         } catch (error) {
-//         return rejectWithValue(
-//             error.response?.data?.message || error.message || 'Login failed'
-//         );
-//         }
-//     }
-// );
-
-// export const loadUserFromToken = createAsyncThunk(
-//     'auth/loadUserFromToken',
-//     async (_, { dispatch, rejectWithValue }) => {
-//     try {
-//         const token = localStorage.getItem('token');
-//         const userRole = localStorage.getItem('role');
-//         const userEmail = localStorage.getItem('userEmail');
-//         const userId = localStorage.getItem('userId');
-//         const userStatus = localStorage.getItem('status');
-
-//         if (!token || !userRole || !userEmail) {
-//             localStorage.clear();
-//             return rejectWithValue('Please log in to continue.');
-//         }
-
-//         const user = {
-//             id: userId,
-//             email: userEmail,
-//             role: userRole,
-//             status: userStatus || undefined,
-//         };
-//         dispatch(loginSuccess(user));
-//         return user;
-//         } catch (error) {
-//         localStorage.clear();
-//         return rejectWithValue(error.message || 'Failed to load user from token');
-//         }
-//     }
-// );
-
-// export const logoutUser = createAsyncThunk(
-//     'auth/logoutUser',
-//     async (_, { dispatch }) => {
-//         localStorage.clear();
-//         dispatch(logout());
-//         return true;
-//     }
-// );
-
-// const initialState = {
-//     user: null,
-//     isAuthenticated: false,
-//     status: 'idle',
-//     error: null,
-// };
-
-// export const authSlice = createSlice({
-//   name: 'auth',
-//   initialState,
-//   reducers: {
-//     loginSuccess: (state, action) => {
-//       state.user = action.payload;
-//       state.isAuthenticated = true;
-//       state.status = 'succeeded';
-//       state.error = null;
-//     },
-//     logout: (state) => {
-//       state.user = null;
-//       state.isAuthenticated = false;
-//       state.status = 'idle';
-//       state.error = null;
-//     },
-//     setAuthError: (state, action) => {
-//       state.status = 'failed';
-//       state.error = action.payload;
-//     },
-//     resetAuthStatus: (state) => {
-//       state.status = 'idle';
-//       state.error = null;
-//     },
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(registerPatient.pending, (state) => {
-//         state.status = 'loading';
-//         state.error = null;
-//       })
-//       .addCase(registerPatient.fulfilled, (state) => {
-//         state.status = 'succeeded';
-//         state.error = null;
-//       })
-//       .addCase(registerPatient.rejected, (state, action) => {
-//         state.status = 'failed';
-//         state.error = action.payload;
-//         state.user = null;
-//         state.isAuthenticated = false;
-//       })
-//       .addCase(registerDoctor.pending, (state) => {
-//         state.status = 'loading';
-//         state.error = null;
-//       })
-//       .addCase(registerDoctor.fulfilled, (state) => {
-//         state.status = 'succeeded';
-//         state.error = null;
-//       })
-//       .addCase(registerDoctor.rejected, (state, action) => {
-//         state.status = 'failed';
-//         state.error = action.payload;
-//         state.user = null;
-//         state.isAuthenticated = false;
-//       })
-//       .addCase(loginUser.pending, (state) => {
-//         state.status = 'loading';
-//         state.error = null;
-//       })
-//       .addCase(loginUser.rejected, (state, action) => {
-//         state.status = 'failed';
-//         state.error = action.payload;
-//         state.user = null;
-//         state.isAuthenticated = false;
-//       })
-//       .addCase(loadUserFromToken.pending, (state) => {
-//         state.status = 'loading';
-//         state.error = null;
-//       })
-//       .addCase(loadUserFromToken.rejected, (state, action) => {
-//         state.status = 'idle';
-//         state.error = action.payload;
-//       })
-//       .addCase(logoutUser.pending, (state) => {
-//         state.status = 'loading';
-//         state.error = null;
-//       })
-//       .addCase(logoutUser.fulfilled, (state) => {
-//         state.status = 'idle';
-//         state.error = null;
-//       })
-//       .addCase(logoutUser.rejected, (state, action) => {
-//         state.status = 'failed';
-//         state.error = action.payload || 'Logout failed';
-//       });
-//   },
-// });
-
-// export const { loginSuccess, logout, setAuthError, resetAuthStatus } = authSlice.actions;
-// export default authSlice.reducer;
-
-
-
-
-
-
-
-
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {jwtDecode} from 'jwt-decode';
 import axiosPublic from '../api/axiosPublic';
 
-// تسجيل مريض
 export const registerPatient = createAsyncThunk(
   'auth/registerPatient',
   async (patientData, thunkAPI) => {
@@ -244,7 +20,6 @@ export const registerPatient = createAsyncThunk(
   }
 );
 
-// تسجيل دكتور
 export const registerDoctor = createAsyncThunk(
   'auth/registerDoctor',
   async (doctorData, thunkAPI) => {
@@ -259,7 +34,6 @@ export const registerDoctor = createAsyncThunk(
   }
 );
 
-// تسجيل الدخول (مريض أو دكتور)
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, thunkAPI) => {
@@ -279,9 +53,8 @@ export const loginUser = createAsyncThunk(
       const userId = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
       const userEmailFromToken = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'];
       const userRoleFromToken = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-      const userStatusFromToken = decodedToken['Status']; // الحالة للطبيب فقط
+      const userStatusFromToken = decodedToken['Status']; 
 
-      // حفظ في localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('role', userRoleFromToken);
       localStorage.setItem('userEmail', userEmailFromToken);
@@ -309,7 +82,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// تحميل المستخدم من التوكن عند بداية التطبيق
 export const loadUserFromToken = createAsyncThunk(
   'auth/loadUserFromToken',
   async (_, { dispatch, rejectWithValue }) => {
@@ -340,7 +112,6 @@ export const loadUserFromToken = createAsyncThunk(
   }
 );
 
-// تسجيل الخروج
 export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async (_, { dispatch }) => {
@@ -350,11 +121,10 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
-// الحالة الابتدائية
 const initialState = {
   user: null,
   isAuthenticated: false,
-  status: 'idle',  // idle | loading | succeeded | failed
+  status: 'idle',  
   error: null,
 };
 

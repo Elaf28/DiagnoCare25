@@ -6,12 +6,11 @@ import axios from 'axios';
 export default function ScanImage() {
   const [selectedImage, setSelectedImage] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
-  const [setConfidence] = useState(null);
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null);
   const [activeButton, setActiveButton] = useState('brain'); 
   const [uploadedImage, setUploadedImage] = useState(null); 
-  const [chestFindings, setChestFindings] = useState([]); // ⬅️ جديد
+  const [chestFindings, setChestFindings] = useState([]);
 
   const handleBrainTumorButton = () => {
     setActiveButton('brain');
@@ -25,11 +24,10 @@ export default function ScanImage() {
 
   const resetFields = () => {
     setDiagnosis('');
-    setConfidence(null);
     setError(null);
     setUploadedImage(null);
     setSelectedImage('');
-    setChestFindings([]); 
+    setChestFindings([]);
   };
 
   const handleImageChange = (event) => {
@@ -37,6 +35,7 @@ export default function ScanImage() {
       const file = event.target.files[0];
       let reader = new FileReader();
       reader.onloadend = () => {
+        resetFields(); // ✅ تصفير الحالة القديمة
         setSelectedImage(file);
         setUploadedImage(reader.result);
       };
@@ -54,7 +53,6 @@ export default function ScanImage() {
 
     setLoading(true);
     setDiagnosis('');
-    // setConfidence(null);
     setChestFindings([]);
     setError(null);
 
@@ -62,8 +60,8 @@ export default function ScanImage() {
     formData.append('image', selectedImage);
 
     const apiUrl = activeButton === 'brain'
-      ? 'https://fd6e-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict'
-      : 'https://d884-2c0f-fc89-8032-61c5-9f-b9b4-27f0-45a3.ngrok-free.app/predict';
+      ? 'https://Mohamed411s-Health-Care-System.hf.space/predict/brain'
+      : 'https://mohamed411s-x-ray.hf.space/predict';
 
     try {
       const response = await axios.post(apiUrl, formData, {
@@ -73,12 +71,10 @@ export default function ScanImage() {
       console.log(response.data);
 
       if (activeButton === 'brain') {
-  setDiagnosis(response.data.prediction || 'No diagnosis found.');
-  setConfidence(response.data.confidence || null);
-} else {
-  setChestFindings(response.data.predictions || []);
-}
-
+        setDiagnosis(response.data.prediction || 'No diagnosis found.');
+      } else {
+        setChestFindings(response.data.predictions || []);
+      }
 
       setLoading(false);
     } catch (error) {
@@ -141,14 +137,13 @@ export default function ScanImage() {
           <div className="output-scan alert alert-primary m-3 fs-5 text-start mx-auto px-5" role="alert">
             <p><strong>Predicted Conditions:</strong></p>
             <p> {diagnosis}</p>
-            
           </div>
         )}
 
         {chestFindings.length > 0 && activeButton === 'chest' && (
           <div className="output-scan alert alert-primary m-3 fs-5 text-start mx-auto px-5" role="alert">
             <strong>Predicted Conditions:</strong>
-            <ul className='mt-2 mb-0 ps-3 ' style={{ listStyleType: 'disc' }}>
+            <ul className='mt-2 mb-0 ps-3' style={{ listStyleType: 'disc' }}>
               {chestFindings.map((finding, index) => (
                 <li key={index}>{finding}</li>
               ))}
@@ -165,5 +160,3 @@ export default function ScanImage() {
     </>
   );
 }
-
-

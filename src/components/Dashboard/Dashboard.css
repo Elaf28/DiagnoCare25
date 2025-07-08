@@ -6,7 +6,6 @@
     background-color:white;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    /* الحل لمشكلة حجم الجدول الكبير أفقياً: إضافة شريط تمرير أفقي عند الحاجة */
     overflow-x: auto; 
 }
 
@@ -24,7 +23,8 @@
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    min-height: 120px;
+    min-height: 135px;
+    min-width: 180px;
 }
 
 .dashboard-card-icon{
@@ -36,7 +36,7 @@
 .recent-appointment table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px; /* يمكن تعيين الحد الأدنى للعرض لضمان عدم تداخل الأعمدة على الشاشات الصغيرة قبل ظهور السكرول */
+    min-width: 600px; 
 }
 
 .recent-appointment th,
@@ -52,13 +52,13 @@
     color: #888;
     text-transform: uppercase;
     font-weight: 500;
-    white-space: nowrap; /* يمنع التفاف النص في رؤوس الأعمدة للحفاظ على عرض العمود */
+    white-space: nowrap; 
 }
 
 .recent-appointment td {
     font-size: 15px;
     font-weight: 400;
-    white-space: nowrap; /* يمنع التفاف النص في خلايا البيانات للحفاظ على عرض العمود */
+    white-space: nowrap; 
 }
 
 .recent-appointment td:first-child {
