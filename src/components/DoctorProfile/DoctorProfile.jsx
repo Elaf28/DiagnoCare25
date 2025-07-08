@@ -25,7 +25,6 @@ export default function DoctorProfile() {
       }
     });
 
-    // ✅ جلب الإحصائيات
     const fetchStats = async () => {
       try {
         const res = await axiosInstance.get('/Doctors/earnings');
@@ -197,7 +196,6 @@ export default function DoctorProfile() {
                     </Card>
                   </div>
 
-                  {/* معلومات مهنية */}
                   <div className='col-md-6'>
                     <Card className="h-100">
                       <Card.Header className="bg-light fs-5 fw-semibold" style={{ color: 'var(--first-color)' }}>Professional Details</Card.Header>

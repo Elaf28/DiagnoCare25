@@ -2,8 +2,6 @@
     background-color: var(--first-color); 
 }
 
-
-
 .patient-bookings-card .table thead th {
     color: var(--first-color);
     vertical-align: middle; 
@@ -13,13 +11,11 @@
     vertical-align: middle; 
 }
 
-
 .patient-bookings-card .table td,
 .patient-bookings-card .table th {
     padding: 0.85rem;
 }
 
-/* Badge styling - ممكن تكون Bootstrap بتتحكم فيها كويس، لكن لو عايزة تعديل زيادة */
 .patient-bookings-card .badge {
     padding: 0.5em 0px; 
     font-size: 0.875em; 
@@ -28,20 +24,17 @@
     
 }
 
-/* Spacing between buttons if needed */
 .patient-bookings-card .table td .btn {
     margin: 0.4rem;
 }
 
 
-/* Styles for "Visit Done" and "Canceled" text */
 .patient-bookings-card .text-primary,
 .patient-bookings-card .text-danger {
     font-size: 0.9em; 
     white-space: nowrap;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .patient-bookings-card .table thead {
         display: none; 

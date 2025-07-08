@@ -22,8 +22,8 @@
 
 }
 .doctor-card:hover {
-    transform: translateY(-5px); /* رفع الكارد قليلاً عند المرور */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* ظل أكبر عند المرور */
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
 }
 
 .doctor-image {
@@ -117,7 +117,7 @@
     .see-more-button { font-size: 0.75rem; padding: 4px 8px; }
 }
 
-@media (max-width: 575.98px){ /* Extra small screens (Mobile) */
+@media (max-width: 575.98px){ 
     .doctor-card{
         width: 100%; 
         max-width: 150px; 

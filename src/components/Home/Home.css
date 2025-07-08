@@ -107,7 +107,7 @@
 }
 
 .about-image img:hover {
-    transform: translateY(-6px); /* Lift effect on hover */
+    transform: translateY(-6px); 
 }
 
 .about__description-container{

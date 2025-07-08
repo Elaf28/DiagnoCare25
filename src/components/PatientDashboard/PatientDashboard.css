@@ -48,7 +48,6 @@
     font-weight: 400;
 }
 
-/* تنسيق خاص لعمود البريد الإلكتروني (الخلية الثالثة) لضمان عرضه بالكامل */
 .patient-dashboard td:nth-child(3) {
     white-space: normal; 
     overflow: visible; 

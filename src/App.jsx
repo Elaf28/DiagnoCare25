@@ -32,7 +32,6 @@ import WorkingHours from './components/WorkingHoures/WorkingHoures';
 import Logout from './components/Logout/Logout';
 import PendingDoctorsDashboard from './components/PendingDoctorsDashboard/PendingDoctorsDashboard';
 import ChatPot from './components/ChatPot/ChatPot';
-import Stripe from './components/Stripe/Stripe';
 import PaymentSuccess from './components/PaymentSuccess/PaymentSuccess';
 import PaymentCancel from './components/PaymentCancel/PaymentCancel';
 
@@ -108,7 +107,6 @@ export default function App() {
                 <Route path='/doctor-pending-approval' element={<DoctorPending/>}/>
                 <Route path='/WorkingHours' element={<WorkingHours/>}/>
                 <Route path='/chatBot' element={<ChatPot/>}/>
-                <Route path='/Stripe' element={<Stripe/>}/>
                 <Route path='/payment-success' element={<PaymentSuccess/>}/>
                 <Route path='/payment-cancel' element={<PaymentCancel/>}/>
                 <Route

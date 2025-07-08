@@ -77,7 +77,7 @@ export default function DoctorSlotsManager() {
         for (const slot of newSlots) {
             if (slot.id.startsWith('temp-')) {
                 const payload = {
-                    doctorId: localStorage.getItem('userId'), // ✅ تم إرجاع doctorId هنا
+                    doctorId: localStorage.getItem('userId'), 
                     DayOfWeek: slot.dayOfWeek,
                     StartTime: slot.startTime,
                     EndTime: slot.endTime,

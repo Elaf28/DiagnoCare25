@@ -7,7 +7,6 @@ export default function SpecialtiesDashboard() {
   const dispatch = useDispatch();
   const { list: specialties, status, error } = useSelector((state) => state.specialties);
 
-  // جلب البيانات عند تحميل الصفحة
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchSpecialties());

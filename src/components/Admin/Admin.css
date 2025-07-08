@@ -5,11 +5,10 @@
     --admin-navbar-bg: #fff;
     --admin-main-bg: #FBFCFF; 
     --admin-text-color: #555;
-    --admin-nav-item-active-bg: #024d9d; /* لون خلفية العنصر النشط */
-    --admin-nav-item-hover-bg: rgba(255, 255, 255, 0.2); /* لون خلفية عند الهوفر */
+    --admin-nav-item-active-bg: #024d9d; 
+    --admin-nav-item-hover-bg: rgba(255, 255, 255, 0.2); 
 }
 
-/* Overall Layout Container */
 .admin-layout-container {
     display: flex;
     background-color: var(--admin-main-bg);
@@ -17,7 +16,6 @@
     overflow: hidden; 
 }
 
-/* Admin Sidebar Styles */
 .admin-sidebar {
     width: var(--admin-sidebar-width);
     background-color: var(--third-color);
@@ -39,8 +37,6 @@
     text-align: center;
     margin-bottom: 30px;
 }
-
-/* .enaya-logo تم إزالته لأنه غير مستخدم في الـ HTML */
 
 .admin-logo-text {
     font-family: "Courgette", cursive;
@@ -92,14 +88,13 @@
 
 .admin-sidebar-nav .admin-nav-item.active {
     font-weight: bold;
-    background-color: var(--admin-nav-item-active-bg); /* استخدام المتغير للون الخلفية النشط */
+    background-color: var(--admin-nav-item-active-bg); 
 }
 
 .admin-sidebar-nav .admin-nav-item:hover {
-    background-color: var(--admin-nav-item-hover-bg); /* استخدام المتغير للون الخلفية عند الهوفر */
+    background-color: var(--admin-nav-item-hover-bg); 
 }
 
-/* Main Content Wrapper (contains Navbar and Page Content) */
 .admin-main-wrapper {
     flex-grow: 1;
     margin-left: var(--admin-sidebar-width); 
@@ -151,15 +146,13 @@
     margin-left: 8px;
 }
 
-/* Page Specific Content Area */
+
 .admin-page-content {
     padding: 20px;
     padding-top: calc(var(--admin-navbar-height) + 20px);
     min-height: calc(100vh - var(--admin-navbar-height));
     box-sizing: border-box;
 }
-
-/* Responsive Design for Hamburger Menu */
 
 .hamburger-menu-btn {
     display: none; 
@@ -200,7 +193,7 @@
     }
     .close-sidebar-btn {
         display: block; 
-        color: white; /* تم تعديل اللون ليكون مرئياً على خلفية السايدبار */
+        color: white; 
     }
     .admin-sidebar {
         width: 280px; 
@@ -217,7 +210,7 @@
     }
 
     .admin-sidebar.open {
-        transform: translateX(0); /* يظهر السايدبار */
+        transform: translateX(0); 
     }
 
     .admin-profile, .admin-sidebar-nav {
@@ -230,7 +223,7 @@
     .admin-sidebar-nav li {
         width: 100%;
     }
-    .admin-sidebar-nav .admin-nav-item { /* تم تصحيح اسم الكلاس */
+    .admin-sidebar-nav .admin-nav-item { 
         justify-content: flex-start; 
     }
 
@@ -247,8 +240,6 @@
         justify-content: flex-start; 
         padding-left: 20px; 
     }
-
-    /* .navbar-title و .admin-navbar-title تم إزالتهم لأنهم غير مستخدمين في الـ HTML */
 
     .admin-navbar-actions {
         margin-left: auto; 

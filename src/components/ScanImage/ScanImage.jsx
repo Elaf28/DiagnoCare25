@@ -35,7 +35,7 @@ export default function ScanImage() {
       const file = event.target.files[0];
       let reader = new FileReader();
       reader.onloadend = () => {
-        resetFields(); // ✅ تصفير الحالة القديمة
+        resetFields(); 
         setSelectedImage(file);
         setUploadedImage(reader.result);
       };
