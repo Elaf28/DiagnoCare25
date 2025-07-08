@@ -8,7 +8,6 @@ import { fetchSpecialties } from '../../Redux/SpecialtiesSlice';
 export default function Specialties() {
   const dispatch = useDispatch();
 
-  // استدعاء البيانات من الريدكس
   const { list: specialties, status, error } = useSelector((state) => state.specialties);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -59,7 +58,7 @@ export default function Specialties() {
                 to={`/doctors/${specialty.name.toLowerCase().replace(/ /g, '-')}`}
                 className="specialty-card link allCard"
               >
-                <img src={specialty.imageUrl} alt={specialty.name} className="specialty-image" />
+                <img src={`http://dcare.runasp.net${specialty.imageUrl}`} alt={specialty.name} className="specialty-image" />
                 <span className="specialty-name fs-5">{specialty.name}</span>
               </Link>
             ))
