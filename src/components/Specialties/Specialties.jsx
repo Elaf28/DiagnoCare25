@@ -58,7 +58,7 @@ export default function Specialties() {
                 to={`/doctors/${specialty.name.toLowerCase().replace(/ /g, '-')}`}
                 className="specialty-card link allCard"
               >
-                <img src={`http://dcare.runasp.net${specialty.imageUrl}`} alt={specialty.name} className="specialty-image" />
+                <img src={`http://dcare.runasp.net/api/${specialty.imageUrl}`} alt={specialty.name} className="specialty-image" />
                 <span className="specialty-name fs-5">{specialty.name}</span>
               </Link>
             ))
