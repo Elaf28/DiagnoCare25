@@ -92,7 +92,6 @@ export default function App() {
                 <Route index element={<Home />} /> 
                 <Route path='register' element={<Register/>}/>
                 <Route path='specialties' element={<Specialties/>}/>
-                {/* <Route path='/doctors/:specialtyName' element={<Doctors/>}/> */}
                 <Route path='/doctor/:id' element={<DoctorDetails/>}/>
                 <Route path='diagnosis' element={<Diagnosis/>}/>
                 <Route path='/examinations/heartDisease' element={<HeartDisease/>}/>
