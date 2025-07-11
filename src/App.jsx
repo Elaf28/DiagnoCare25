@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'; 
-import { Routes, Route, Navigate, Link ,useLocation} from 'react-router-dom';
+import { Routes, Route, Navigate, Link ,useLocation ,useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserFromToken} from './Redux/authSlice';
@@ -50,6 +50,7 @@ import PaymentCancel from './components/PaymentCancel/PaymentCancel';
   }
 
 const PrivateRoute = ({ children, allowedRoles, showLoginAlert = false }) => {
+  const navigate = useNavigate();
   const { isAuthenticated, user, status } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -60,26 +61,23 @@ const PrivateRoute = ({ children, allowedRoles, showLoginAlert = false }) => {
         icon: 'warning',
         confirmButtonText: 'Go to Login',
       }).then(() => {
-        window.location.href = '/login';
+        navigate('/login');
       });
     }
-  }, [isAuthenticated, status, showLoginAlert]);
+  }, [isAuthenticated, status, showLoginAlert, navigate]);
 
   if (!isAuthenticated && showLoginAlert) {
     return null;
   }
-
   if (!isAuthenticated && !showLoginAlert) {
     return <Navigate to="/login" replace />;
   }
-
   if (allowedRoles && user && !allowedRoles.includes(user.role)) {
     return <Navigate to="/unauthorized" replace />;
   }
 
   return children;
 };
-
 
 export default function App() {
     const dispatch = useDispatch();
