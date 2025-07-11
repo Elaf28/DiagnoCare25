@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "http://dcare.runasp.net/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
